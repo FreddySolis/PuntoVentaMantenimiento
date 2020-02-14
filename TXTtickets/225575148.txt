@@ -1,0 +1,20 @@
+Folio del ticket: 225575148
+-------------------------
+Tipo de Producto: Cuaderno
+Nombre: Scribe
+Folio: 1234565
+Precio: $12.0
+
+Folio del ticket: 225575148
+-------------------------
+Tipo de Producto: Papeleria
+Nombre: Borrador
+Folio: 123456
+Precio: $2.9
+
+-------------------------
+Subtotal: $14.9
+IVA: $2.3839998
+Total: $17.284
+Pago: $50
+Cambio: $32.716

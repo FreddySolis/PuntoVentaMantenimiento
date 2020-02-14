@@ -1,0 +1,13 @@
+Folio del ticket: 506073529
+-------------------------
+Tipo de Producto: Cuaderno
+Nombre: Scribe
+Folio: 1234565
+Precio: $12.0
+
+-------------------------
+Subtotal: $12.0
+IVA: $1.92
+Total: $13.92
+Pago: $15
+Cambio: $1.0799999

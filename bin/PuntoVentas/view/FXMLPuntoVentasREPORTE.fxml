@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerReportes">
+   <children>
+      <ImageView fitHeight="530.0" fitWidth="631.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" />
+      <Label layoutX="160.0" layoutY="22.0" prefHeight="73.0" prefWidth="305.0" text="Reporte de ventas" textAlignment="CENTER" textFill="#ff5757">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TableView layoutX="5.0" layoutY="128.0" prefHeight="231.0" prefWidth="615.0">
+        <columns>
+          <TableColumn prefWidth="128.0" text="Cantidad de articulos" />
+            <TableColumn prefWidth="112.0" text="Folio de producto" />
+            <TableColumn prefWidth="150.0" text="Descripcion" />
+            <TableColumn prefWidth="79.0" text="precio c/u" />
+            <TableColumn prefWidth="71.0" text="Total" />
+            <TableColumn prefWidth="74.0" text="#Producto" />
+        </columns>
+      </TableView>
+      <Label layoutX="332.0" layoutY="424.0" text="Ganancia total" />
+      <TextField layoutX="420.0" layoutY="378.0" prefHeight="25.0" prefWidth="98.0" />
+      <Label layoutX="113.0" layoutY="87.0" text="Fecha:" />
+      <TextField layoutX="160.0" layoutY="83.0" prefHeight="25.0" prefWidth="86.0" />
+      <TextField layoutX="420.0" layoutY="420.0" prefHeight="25.0" prefWidth="98.0" />
+      <Label layoutX="332.0" layoutY="382.0" text="IVA" />
+      <TextField layoutX="469.0" layoutY="83.0" prefHeight="25.0" prefWidth="111.0" />
+      <Label layoutX="367.0" layoutY="87.0" text="Folio de reporte" />
+      <Button fx:id="Regresar" layoutX="52.0" layoutY="433.0" mnemonicParsing="false" onAction="#cargarListado" style="-fx-background-color: #ff5757;" text="Regresar" textFill="WHITE" />
+      <Button fx:id="Salir" layoutX="134.0" layoutY="433.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #ff5757;" text="Salir" textFill="WHITE" />
+   </children>
+</AnchorPane>

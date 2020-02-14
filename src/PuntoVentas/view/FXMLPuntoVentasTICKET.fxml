@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerTickets">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <children>
+      <ImageView fitHeight="523.0" fitWidth="624.0" pickOnBounds="true" />
+      <Label layoutX="287.0" layoutY="27.0" text="Ticket" />
+      <Label layoutX="201.0" layoutY="44.0" prefHeight="55.0" prefWidth="222.0" text="Papelería CLL" textFill="#ff5757">
+         <font>
+            <Font name="Garamond" size="36.0" />
+         </font>
+      </Label>
+      <TableView layoutX="61.0" layoutY="173.0" prefHeight="200.0" prefWidth="502.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Cantidad" />
+          <TableColumn prefWidth="272.0" text="Descripción" />
+            <TableColumn prefWidth="72.0" text="Precio c/u" />
+            <TableColumn prefWidth="81.0" text="Importe $" />
+        </columns>
+      </TableView>
+      <Label layoutX="201.0" layoutY="91.0" prefHeight="34.0" prefWidth="149.0" text="Calle Playas de catazajá 435" />
+      <Label layoutX="201.0" layoutY="117.0" text="Col.Centenario Tuchtlan" />
+      <Label layoutX="201.0" layoutY="134.0" text="Teléfono: 6157175" />
+      <Label layoutX="365.0" layoutY="397.0" text="Total de articulos" />
+      <Label layoutX="365.0" layoutY="431.0" text="Sub total" />
+      <Label layoutX="365.0" layoutY="492.0" text="Total" />
+      <Label layoutX="365.0" layoutY="463.0" text="Total IVA" />
+      <TextField layoutX="464.0" layoutY="393.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField layoutX="464.0" layoutY="427.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField layoutX="464.0" layoutY="459.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField layoutX="464.0" layoutY="488.0" prefHeight="25.0" prefWidth="91.0" />
+      <Button fx:id="Regresar" layoutX="101.0" layoutY="436.0" mnemonicParsing="false" onAction="#cargarListado" style="-fx-background-color: #ff5757;" text="Regresar" textFill="WHITE" />
+      <Button fx:id="Salir" layoutX="178.0" layoutY="436.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #ff5757;" text="Salir" textFill="WHITE" />
+      <Label layoutX="44.0" layoutY="36.0" text="Fecha:" />
+      <TextField layoutX="87.0" layoutY="32.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField layoutX="499.0" layoutY="45.0" prefHeight="25.0" prefWidth="91.0" />
+      <Label layoutX="426.0" layoutY="49.0" text="Folio Ticket" />
+   </children>
+</AnchorPane>

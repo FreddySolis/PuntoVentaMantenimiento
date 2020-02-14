@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerListado">
+   <children>
+      <ImageView fitHeight="530.0" fitWidth="624.0" layoutY="-3.0" onDragDetected="#cargarInventario" pickOnBounds="true">
+         <image>
+            <Image url="@Cy7uHP6VIAAY6rJ%5B1%5D.jpg" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="150.0" layoutY="175.0" prefHeight="201.0" prefWidth="325.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="Proveedores" mnemonicParsing="false" onAction="#cargarProveedores" text="Proveedores" textFill="#ff5757" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="Inventario" mnemonicParsing="false" onAction="#cargarInventario" text="Inventario" textFill="#ff5757" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="Usuarios" mnemonicParsing="false" onAction="#cargarUsuarios" text="Usuarios" textFill="#ff5757" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="Reporte" mnemonicParsing="false" onAction="#cargarReporte" text="Reporte" textFill="#ff5757" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="RegistrarProducto" mnemonicParsing="false" onAction="#cargarRegistroProducto" text="Registro de Productos" textFill="#ff5757">
+               <GridPane.margin>
+                  <Insets left="18.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="RegistroProvee" mnemonicParsing="false" onAction="#cargarRegistroProvee" text="Registro Proveedores" textFill="#ff5757" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="ventaYflujo" mnemonicParsing="false" onAction="#cargarVentaYFlujo" text="Venta y Flujo de caja" textFill="#ff5757" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+      <Label layoutX="229.0" layoutY="37.0" prefHeight="99.0" prefWidth="236.0" text="Menú" textFill="#ff5757">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Button fx:id="salirYregresar" layoutX="494.0" layoutY="454.0" mnemonicParsing="false" onAction="#regresarLogin" style="-fx-background-color: #ff5757;" text="Salir y regresar" textFill="WHITE" />
+   </children>
+</AnchorPane>

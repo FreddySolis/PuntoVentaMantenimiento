@@ -1,0 +1,20 @@
+Folio del ticket: 501176345
+-------------------------
+Tipo de Producto: Lapicero
+Nombre: Pluma bic
+Folio: 123497
+Precio: $8.0
+
+Folio del ticket: 501176345
+-------------------------
+Tipo de Producto: Cuaderno
+Nombre: Scribe
+Folio: 1234565
+Precio: $12.0
+
+-------------------------
+Subtotal: $20.0
+IVA: $3.2
+Total: $23.2
+Pago: $50
+Cambio: $26.8

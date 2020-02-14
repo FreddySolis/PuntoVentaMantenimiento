@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorOpcion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerOPCIONbasedatos">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="71.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@MySQL-logo-759x494.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="339.0" layoutY="136.0" pickOnBounds="true">
+         <image>
+            <Image url="@5dd71427f243a.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="IngresarMySQL" layoutX="138.0" layoutY="337.0" mnemonicParsing="false" onAction="#cargarLogin" style="-fx-background-color: #ff5757;" text="Ingresar" textFill="WHITE" />
+      <Button fx:id="IngresarSQL" layoutX="416.0" layoutY="337.0" mnemonicParsing="false" onAction="#cargarLogin2" style="-fx-background-color: #ff5757;" text="Ingresar" textFill="WHITE" />
+   </children>
+</AnchorPane>

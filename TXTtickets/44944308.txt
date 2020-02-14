@@ -1,0 +1,20 @@
+Folio del ticket: 44944308
+-------------------------
+Tipo de Producto: Papeleria
+Nombre: Borrador
+Folio: 123456
+Precio: $2.9
+
+Folio del ticket: 44944308
+-------------------------
+Tipo de Producto: Lapicero
+Nombre: Pluma negra
+Folio: 121212
+Precio: $16.0
+
+-------------------------
+Subtotal: $18.9
+IVA: $3.024
+Total: $21.924
+Pago: $50
+Cambio: $28.076

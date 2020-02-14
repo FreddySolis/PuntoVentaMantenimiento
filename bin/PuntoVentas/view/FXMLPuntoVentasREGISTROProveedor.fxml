@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerREGISTROproveedores">
+   <children>
+      <ImageView fitHeight="529.0" fitWidth="632.0" pickOnBounds="true" />
+      <TextField fx:id="CAJAfolioproduct" layoutX="354.0" layoutY="266.0" />
+      <Label layoutX="120.0" layoutY="153.0" text="Nombre de Proveedor" />
+      <Label layoutX="116.0" layoutY="210.0" text="Nombre de Producto" />
+      <Label layoutX="116.0" layoutY="270.0" text="Folio de Producto" />
+      <TextField fx:id="CAJAnombreProvee" layoutX="354.0" layoutY="149.0" />
+      <TextField fx:id="CAJAnombreProduct" layoutX="354.0" layoutY="206.0" />
+      <Button fx:id="Regresar" layoutX="392.0" layoutY="439.0" mnemonicParsing="false" onAction="#cargarListado" style="-fx-background-color: #ff5757;" text="Regresar" textFill="WHITE" />
+      <Button fx:id="Salir" layoutX="474.0" layoutY="439.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #ff5757;" text="Salir" textFill="WHITE" />
+      <Button fx:id="Guardar" layoutX="316.0" layoutY="439.0" mnemonicParsing="false" onAction="#agregar" style="-fx-background-color: #ff5757;" text="Guardar" textFill="WHITE" />
+   </children>
+</AnchorPane>

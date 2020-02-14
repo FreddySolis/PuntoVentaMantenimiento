@@ -1,0 +1,13 @@
+Folio del ticket: 920004978
+-------------------------
+Tipo de Producto: Papeleria
+Nombre: Borrador
+Folio: 123456
+Precio: $2.9
+
+-------------------------
+Subtotal: $2.9
+IVA: $0.46400002
+Total: $3.364
+Pago: $10
+Cambio: $6.6359997
