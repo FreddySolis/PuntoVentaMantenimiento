@@ -1,4 +1,4 @@
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;

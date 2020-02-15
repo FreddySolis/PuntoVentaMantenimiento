@@ -1,4 +1,4 @@
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -49,17 +49,7 @@ public class Controller {
 	
 	public void cargarListado()   {
 		try {
-			
-			
-			
-	        
-			
-			
-			
-			
-			
-			
-			////////////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////
 
 			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
 			Scene scene = new Scene (root2);

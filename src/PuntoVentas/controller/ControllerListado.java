@@ -1,4 +1,4 @@
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -1,11 +1,4 @@
-package PuntoVentas.view;
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+package PuntoVentas.controller;
 
 
 import java.io.IOException;
@@ -16,7 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-public class ControllerReportes {
+
+public class ControllerTickets {
 	@FXML
 	private Button Salir;
 
@@ -54,6 +48,4 @@ public class ControllerReportes {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }

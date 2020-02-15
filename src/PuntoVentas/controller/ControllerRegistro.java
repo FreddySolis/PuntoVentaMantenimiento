@@ -1,4 +1,4 @@
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 import java.io.IOException;
 import java.sql.Connection;

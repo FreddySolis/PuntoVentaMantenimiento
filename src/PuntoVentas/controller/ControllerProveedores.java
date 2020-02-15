@@ -1,4 +1,4 @@
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 
 import java.net.URL;

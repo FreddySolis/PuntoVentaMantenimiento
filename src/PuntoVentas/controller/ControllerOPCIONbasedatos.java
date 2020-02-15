@@ -1,7 +1,4 @@
-package PuntoVentas.view;
-
-
-import java.io.IOException;
+package PuntoVentas.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ControllerTickets {
+public class ControllerOPCIONbasedatos {
 	@FXML
-	private Button Salir;
-
+	private Button IngresarMySQL;
 	@FXML
-	public void regresarLogin() {
+	public void cargarLogin() {
 		try {
 			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLOGIN.fxml"));
 			Scene scene = new Scene (root2);
@@ -23,25 +19,26 @@ public class ControllerTickets {
 			primaryLayout.setScene(scene);
 			primaryLayout.setTitle("FXMLPuntoVentasLOGIN");
 			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Salir.getScene().getWindow();
+			Stage nuevaEscena =(Stage) this.IngresarMySQL.getScene().getWindow();
 			nuevaEscena.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	@FXML
-	private Button Regresar;
+	private Button IngresarSQL;
 	@FXML
-	public void cargarListado() {
+	public void cargarLogin2() {
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
+			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLOGIN.fxml"));
 			Scene scene = new Scene (root2);
 			Stage primaryLayout = new Stage();
 			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
+			primaryLayout.setTitle("FXMLPuntoVentasLOGIN");
 			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Regresar.getScene().getWindow();
+			Stage nuevaEscena =(Stage) this.IngresarSQL.getScene().getWindow();
 			nuevaEscena.close();
 			
 		} catch (Exception e) {
