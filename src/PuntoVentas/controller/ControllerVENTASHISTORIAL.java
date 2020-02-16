@@ -11,7 +11,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import PuntoVentas.model.ClassProductos;
-import PuntoVentas.model.ConnectorMySQL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

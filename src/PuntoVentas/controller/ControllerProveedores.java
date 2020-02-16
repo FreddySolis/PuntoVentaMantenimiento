@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 import PuntoVentas.model.ClassProveedores;
 import PuntoVentas.model.ClassProveedores;
-import PuntoVentas.model.ConnectorMySQL;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;

@@ -1,4 +1,4 @@
-package PuntoVentas.model;
+package PuntoVentas.controller;
 import java.sql.DriverManager;
 import java.sql.Connection;
 

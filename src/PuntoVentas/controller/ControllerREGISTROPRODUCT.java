@@ -18,7 +18,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import PuntoVentas.model.ConnectorMySQL;
 
 public class ControllerREGISTROPRODUCT {
 	@FXML
