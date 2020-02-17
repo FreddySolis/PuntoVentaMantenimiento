@@ -15,13 +15,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="1167.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="PuntoVentas.controller.VentasPruebaController">
   <children>
-<<<<<<< HEAD
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ddd5" height="520.0" layoutX="-2.0" layoutY="65.0" stroke="WHITE" strokeType="INSIDE" width="1167.0" />
     <TableView fx:id="tblProductos" layoutX="4.0" layoutY="116.0" prefHeight="382.0" prefWidth="424.0">
-=======
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ddd5" height="800.0" layoutX="0.0" layoutY="63.0" stroke="WHITE" strokeType="INSIDE" width="900.0" />
-    <TableView fx:id="tblProductos" layoutX="4.0" layoutY="116.0" prefHeight="258.0" prefWidth="338.0">
->>>>>>> 3ebd3ec0c1a142d0fb423b905809f3045ba1270a
       <columns>
         <TableColumn prefWidth="75.0" text="Productos" fx:id="clnProductos" />
         <TableColumn prefWidth="75.0" text="Precio" fx:id="clnPrecio" />
@@ -80,7 +75,7 @@
     <Text font="$x3" layoutX="472.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Provedores" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="283.0" layoutY="11.0" stroke="$x4" strokeType="INSIDE" width="137.0" />
     <Text font="$x3" layoutX="299.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Productos" />
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="95.0" layoutY="11.0" stroke="$x4" strokeType="INSIDE" width="137.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="95.0" layoutY="11.0" onMouseClicked="#regresarHome" stroke="$x4" strokeType="INSIDE" width="137.0" />
     <Text font="$x3" layoutX="135.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" />
   </children>
 </AnchorPane>
