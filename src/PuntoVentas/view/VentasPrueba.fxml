@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="782.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="PuntoVentas.controller.VentasPruebaController">
   <children>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ddd5" height="484.0" layoutX="0.0" layoutY="63.0" stroke="WHITE" strokeType="INSIDE" width="783.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ddd5" height="800.0" layoutX="0.0" layoutY="63.0" stroke="WHITE" strokeType="INSIDE" width="900.0" />
     <TableView fx:id="tblProductos" layoutX="4.0" layoutY="116.0" prefHeight="258.0" prefWidth="338.0">
       <columns>
         <TableColumn prefWidth="75.0" text="Productos" fx:id="clnProductos" />
