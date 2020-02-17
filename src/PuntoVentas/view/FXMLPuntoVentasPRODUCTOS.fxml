@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerProductos">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.ControllerProductos">
    <children>
       <ImageView fitHeight="523.0" fitWidth="700.0" pickOnBounds="true">
          <image>
@@ -24,25 +24,25 @@
       </Label>
       <Button fx:id="Regresar" layoutX="450.0" layoutY="484.0" mnemonicParsing="false" onAction="#cargarListado" style="-fx-background-color: #ff5757;" text="Regresar" textFill="WHITE" />
       <Button fx:id="Salir" layoutX="529.0" layoutY="484.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #ff5757;" text="Salir" textFill="WHITE" />
-      <TextField fx:id="cajanombreProduct" layoutX="230.0" layoutY="389.0" prefHeight="25.0" prefWidth="91.0" promptText="Nombre" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="cajafolioProduct" layoutX="334.0" layoutY="389.0" prefHeight="25.0" prefWidth="63.0" promptText="Folio" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="cajaprecio" layoutX="409.0" layoutY="389.0" prefHeight="25.0" prefWidth="75.0" promptText="Precio" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="cajanombreProvee" layoutX="494.0" layoutY="389.0" prefHeight="25.0" prefWidth="121.0" promptText="Nombre proveedor" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="productoTF" layoutX="24.0" layoutY="389.0" prefHeight="25.0" prefWidth="91.0" promptText="Nombre" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="tipoProductoTF" layoutX="130.0" layoutY="389.0" prefHeight="25.0" prefWidth="111.0" promptText="Tipo de Producto" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="precioTF" layoutX="264.0" layoutY="389.0" prefHeight="25.0" prefWidth="75.0" promptText="Precio" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="cantidadTF" layoutX="368.0" layoutY="389.0" prefHeight="25.0" prefWidth="63.0" promptText="Cantidad" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="proveedorTF" layoutX="453.0" layoutY="389.0" prefHeight="25.0" prefWidth="121.0" promptText="Nombre proveedor" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="tamañoTF" layoutX="617.0" layoutY="389.0" prefHeight="14.0" prefWidth="47.0" promptText="Nombre proveedor" style="-fx-background-color: #76D7C4;" />
       <Button fx:id="buttoneliminar" layoutX="252.0" layoutY="484.0" mnemonicParsing="false" onAction="#eliminar" style="-fx-background-color: #ff5757;" text="Eliminar" textFill="WHITE" />
       <Button fx:id="buttoneditar" layoutX="329.0" layoutY="484.0" mnemonicParsing="false" onAction="#modificar" style="-fx-background-color: #ff5757;" text="Editar" textFill="WHITE" />
-      <TextField fx:id="cajatipoProduct" layoutX="24.0" layoutY="389.0" prefHeight="25.0" prefWidth="111.0" promptText="Tipo de Producto" style="-fx-background-color: #76D7C4;" />
       <TableView fx:id="tablaProduct" layoutX="7.0" layoutY="134.0" prefHeight="229.0" prefWidth="686.0">
         <columns>
-          <TableColumn fx:id="tipoProduct" prefWidth="137.0" text="Tipo de producto (TP)" />
-          <TableColumn fx:id="idTipoProduct" prefWidth="79.0" text="ID de (TP)" />
-            <TableColumn fx:id="nombreProduct" prefWidth="89.0" text="Nombre" />
-            <TableColumn fx:id="folio" prefWidth="63.0" text="Folio" />
-            <TableColumn fx:id="precio" prefWidth="68.0" text="Precio" />
-            <TableColumn fx:id="nombreProvee" prefWidth="132.0" text="Nombre Proveedor" />
-            <TableColumn fx:id="CantidadProducto" prefWidth="127.0" text="#Productos" />
+            <TableColumn fx:id="nombreProduct" prefWidth="164.0" text="Nombre" />
+          <TableColumn fx:id="tipoProduct" prefWidth="159.0" text="Tipo de producto (TP)" />
+            <TableColumn fx:id="precio" prefWidth="100.0" text="Precio" />
+            <TableColumn fx:id="CantidadProducto" prefWidth="56.0" text="Cantidad" />
+            <TableColumn fx:id="nombreProvee" prefWidth="141.0" text="Nombre Proveedor" />
+            <TableColumn fx:id="folio" prefWidth="65.0" text="Folio" />
         </columns>
       </TableView>
-      <TextField fx:id="cajaIDtipoProduct" editable="false" layoutX="140.0" layoutY="389.0" prefHeight="25.0" prefWidth="75.0" promptText="ID Producto" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="CAJAnPRODUCT" layoutX="625.0" layoutY="389.0" prefHeight="25.0" prefWidth="63.0" promptText="#" style="-fx-background-color: #76D7C4;" />
+      <TextField fx:id="idTF" editable="false" layoutX="24.0" layoutY="459.0" prefHeight="14.0" prefWidth="47.0" promptText="id" style="-fx-background-color: #76D7C4;" />
+      <Button fx:id="btnAgregar" layoutX="182.0" layoutY="484.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: #ff5757;" text="Editar" textFill="WHITE" />
    </children>
 </AnchorPane>
