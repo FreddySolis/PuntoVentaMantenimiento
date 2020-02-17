@@ -23,7 +23,7 @@
             <DropShadow height="14.78" offsetX="2.0" offsetY="2.0" radius="7.6675" width="17.89" />
          </effect>
       </Button>
-      <Label fx:id="lbError" layoutX="202.0" layoutY="241.0" text="Errores" textAlignment="CENTER" textFill="RED" visible="false">
+      <Label fx:id="lbError" layoutX="202.0" layoutY="241.0" text="Errores" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="System Italic" size="15.0" />
          </font>
