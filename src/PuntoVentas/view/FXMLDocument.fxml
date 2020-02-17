@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="561.0" prefWidth="767.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="interfacesmantenimiento.FXMLDocumentController">
+  <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5ddd5" height="548.0" layoutX="1.0" layoutY="66.0" stroke="WHITE" strokeType="INSIDE" width="784.0" />
+    <Circle fill="#b6cca0" layoutX="718.0" layoutY="34.0" radius="32.5" stroke="BLACK" strokeType="INSIDE" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="282.0" layoutX="18.0" layoutY="324.0" stroke="WHITE" strokeType="INSIDE" width="354.0" />
+    <TableView layoutX="57.0" layoutY="400.0" prefHeight="200.0" prefWidth="276.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="Column X" />
+        <TableColumn prefWidth="75.0" text="Column X" />
+      </columns>
+    </TableView>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="123.0" layoutY="6.0" strokeType="INSIDE" width="161.0">
+      <stroke>
+        <Color blue="0.875" green="0.875" red="0.875" fx:id="x1" />
+      </stroke>
+    </Rectangle>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="311.0" layoutY="6.0" stroke="$x1" strokeType="INSIDE" width="161.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="485.0" layoutY="6.0" stroke="$x1" strokeType="INSIDE" width="178.0" />
+    <Text layoutX="493.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Historial de ventas">
+      <font>
+        <Font size="20.0" fx:id="x2" />
+      </font>
+    </Text>
+    <Text font="$x2" layoutX="348.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventario" />
+    <Text font="$x2" layoutX="171.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cajeros" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="46.0" layoutX="81.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="228.0" />
+    <Text layoutX="113.0" layoutY="374.0" scaleX="1.0000045173812164" scaleY="1.0619130108908468" strokeType="OUTSIDE" strokeWidth="0.5" text="Proveedores">
+      <font>
+        <Font size="30.0" fx:id="x3" />
+      </font>
+    </Text>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e60909" height="36.0" layoutX="467.0" layoutY="513.0" stroke="WHITE" strokeType="INSIDE" width="212.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3f8222" height="39.90234375" layoutX="454.0" layoutY="380.0" stroke="WHITE" strokeType="INSIDE" width="239.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3ec8" height="36.0" layoutX="432.0" layoutY="449.0" stroke="WHITE" strokeType="INSIDE" width="294.14453125" />
+    <Text fill="WHITE" font="$x3" layoutX="509.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cerrar caja" />
+    <Text fill="WHITE" font="$x3" layoutX="467.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hacer una venta" />
+    <Text fill="WHITE" font="$x3" layoutX="426.0" layoutY="477.0" scaleX="0.8669455536540533" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generar reporte del día" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="35.0" layoutX="17.0" layoutY="17.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="24.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="17.0" layoutX="29.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4f7a37" height="103.0" layoutX="18.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="239.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9adad" height="103.0" layoutX="270.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="239.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2aee8" height="103.0" layoutX="522.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="239.0" />
+    <Text fill="WHITE" layoutX="94.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000">
+      <font>
+        <Font size="40.0" fx:id="x4" />
+      </font>
+    </Text>
+    <Text fill="WHITE" font="$x4" layoutX="350.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000" />
+    <Text fill="WHITE" font="$x4" layoutX="607.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000" />
+    <Text fill="WHITE" layoutX="55.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ventas totales">
+      <font>
+        <Font size="28.0" fx:id="x5" />
+      </font>
+    </Text>
+    <Text fill="WHITE" font="$x5" layoutX="297.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ganacia del día" />
+    <Text fill="WHITE" font="$x5" layoutX="540.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ganacia semanal" />
+  </children>
+</AnchorPane>

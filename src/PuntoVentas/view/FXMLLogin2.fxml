@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="693.0" prefWidth="673.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Rectangle id="frames" arcHeight="5.0" arcWidth="5.0" cache="true" cacheHint="ROTATE" fill="#ecee63" height="525.0" layoutX="86.0" layoutY="63.0" stroke="WHITE" strokeMiterLimit="10.0" strokeType="INSIDE" style="border-radius: 20px; -fx-border-radius: 0 0 18 18;" width="469.0" />
+    <TextField layoutX="220.0" layoutY="246.0" prefHeight="44.0" prefWidth="201.0" promptText="Ingrese un usuario" />
+    <TextField alignment="CENTER" disable="false" editable="false" layoutX="216.0" layoutY="325.0" prefHeight="43.99993896484375" prefWidth="201.0" promptText="Ingrese una contraseña" />
+    <Rectangle id="Entrar" arcHeight="5.0" arcWidth="5.0" fill="#bfbfbf" height="43.0" layoutX="217.0" layoutY="423.0" stroke="GREY" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-radius: 0 0 18 18;border-radius: 20px;" width="199.99998474121094" />
+    <Label layoutX="273.0" layoutY="425.0" prefHeight="40.0" prefWidth="87.0" text="Entrar">
+      <font>
+        <Font size="30.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Region layoutX="188.0" layoutY="-86.0" prefHeight="126.0" prefWidth="269.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfdfdf" height="155.0" layoutX="137.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="372.0" />
+    <Text font="$x1" layoutX="209.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ESTO ESEL LOGO" />
+  </children>
+  <stylesheets>
+    <URL value="@fxmllogin2.css" />
+  </stylesheets>
+</AnchorPane>
