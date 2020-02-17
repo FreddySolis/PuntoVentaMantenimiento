@@ -27,195 +27,204 @@ import java.util.ResourceBundle;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import PuntoVentas.model.ClassProductos;
+import PuntoVentas.model.ProductosModel;
 
-public class ControllerProductos implements Initializable{
-	@FXML
-	private Button Regresar;
-	@FXML
-	private Button buttoneliminar;
-	@FXML
-	private Button buttoneditar;
-	@FXML
-	private Button buttonAgregar;
-	@FXML
-	private TextField cajatipoProduct;
-	@FXML
-	private TextField cajaIDtipoProduct;
-	@FXML
-	private TextField cajanombreProduct;
-	@FXML
-	private TextField cajafolioProduct;
-	@FXML
-	private TextField cajaprecio;
-	@FXML
-	private TextField cajanombreProvee;
-	@FXML
-	private TextField CAJAnPRODUCT;
-	@FXML
-    private TableColumn<ClassProductos, String> tipoProduct;
-	@FXML
-    private TableColumn<ClassProductos, String> CantidadProducto;
-	@FXML
-    private TableColumn<ClassProductos, String> idTipoProduct;
-	@FXML
-    private TableColumn<ClassProductos, String> nombreProduct;
-	@FXML
-    private TableColumn<ClassProductos, String> folio;
-	@FXML
-    private TableColumn<ClassProductos, String> precio;
-	@FXML
-    private TableColumn<ClassProductos, String> nombreProvee;
+public class ControllerProductos implements Initializable {
+
     @FXML
-    private TableView<ClassProductos> tablaProduct;
+    private Button Regresar;
     @FXML
-    ObservableList<ClassProductos> productList = FXCollections.observableArrayList();
-    
+    private Button buttoneliminar;
+    @FXML
+    private Button buttoneditar;
+    @FXML
+    private Button btnAgregar;
+    @FXML
+    private TextField productoTF;
+    @FXML
+    private TextField cantidadTF;
+    @FXML
+    private TextField precioTF;
+    @FXML
+    private TextField proveedorTF;
+    @FXML
+    private TextField tamañoTF;
+    @FXML
+    private TextField idTF;
+    @FXML
+    private TextField tipoProductoTF;
+    @FXML
+    private TableColumn<ProductosModel, String> tipoProduct;
+    @FXML
+    private TableColumn<ProductosModel, String> CantidadProducto;
+    @FXML
+    private TableColumn<ProductosModel, String> folio;
+    @FXML
+    private TableColumn<ProductosModel, String> nombreProduct;
+    @FXML
+    private TableColumn<ProductosModel, String> precio;
+    @FXML
+    private TableColumn<ProductosModel, String> nombreProvee;
+    @FXML
+    private TableView<ProductosModel> tablaProduct;
+    @FXML
+    ObservableList<ProductosModel> productList = FXCollections.observableArrayList();
+
     public void initialize(URL url, ResourceBundle rb) {
-    	tipoProduct.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
-    	CantidadProducto.setCellValueFactory(new PropertyValueFactory<>("cantidadProduct"));
-		idTipoProduct.setCellValueFactory(new PropertyValueFactory<>("tipoProductoID"));
-		nombreProduct.setCellValueFactory(new PropertyValueFactory<>("nomProducto"));
-		folio.setCellValueFactory(new PropertyValueFactory<>("folioProducto"));
-		precio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
-		nombreProvee.setCellValueFactory(new PropertyValueFactory<>("nombreproveedor"));
-		ObservableList<ClassProductos> list = getPersonList();
-    	tablaProduct.getItems().setAll(list);
-    	
-    	final ObservableList<ClassProductos> tablaProducto = tablaProduct.getSelectionModel().getSelectedItems();
-	    tablaProducto.addListener(selectorTablaProductos);
-    }
-		
-	public ObservableList<ClassProductos> getPersonList(){
-		ObservableList<ClassProductos> productList = FXCollections.observableArrayList();
-		Connection connection = ConnectorMySQL.getConnection();
-		String query = "SELECT * FROM datosproduct";
-		Statement st;
-		ResultSet rs;
-		
-		try {
-			st = connection.createStatement();
-			rs = st.executeQuery(query);
-			ClassProductos Productos;
-			while(rs.next()) {
-				Productos = new ClassProductos(rs.getString("tipoProduct"),rs.getInt("CantidadProducto"),rs.getInt("IDtipoProduct"),rs.getString("nombre"),rs.getString("folioproduct"),rs.getFloat("precio"),rs.getString("nombreProveedor"));
-				productList.add(Productos);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return productList;
-	}
-	
-	
-	
-    public void executeQuery(String query) {
-		Connection conn = ConnectorMySQL.getConnection();
-		Statement st;
-		try {
-			st = conn.createStatement();
-			st.executeUpdate(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
-	private final ListChangeListener<ClassProductos> selectorTablaProductos =
-            new ListChangeListener<ClassProductos>() {
+        nombreProduct.setCellValueFactory(new PropertyValueFactory<>("producto"));
+        tipoProduct.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        precio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+        CantidadProducto.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        nombreProvee.setCellValueFactory(new PropertyValueFactory<>("proveedor"));
+        folio.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ObservableList<ProductosModel> list = getPersonList();
+        tablaProduct.getItems().setAll(list);
 
-				@Override
-				public void onChanged(Change<? extends ClassProductos> arg0) {
-					ponerProductoSeleccionada();
-					
-				}
-            };
-	
-	private void ponerProductoSeleccionada() {
-        final ClassProductos producto =  productoSeleccionado();
-        productList.indexOf(producto);
-        if (productList != null) {
-        	cajatipoProduct.setText(producto.getTipoProducto());
-        	CAJAnPRODUCT.setText(Integer.toString(producto.getCantidadProduct()));
-        	cajaIDtipoProduct.setText(Integer.toString(producto.getTipoProductoID()));
-        	cajanombreProduct.setText(producto.getNomProducto());
-        	cajafolioProduct.setText(producto.getFolioProducto());
-        	cajanombreProvee.setText(producto.getNombreproveedor());
-            cajaprecio.setText(Float.toString(producto.getPrecio()));   
+        final ObservableList<ProductosModel> tablaProducto = tablaProduct.getSelectionModel().getSelectedItems();
+        tablaProducto.addListener(selectorTablaProductos);
+    }
+
+    public ObservableList<ProductosModel> getPersonList() {
+        ObservableList<ProductosModel> productList = FXCollections.observableArrayList();
+        Connection connection = ConnectorMySQL.getConnection();
+        String query = "select productos.id,productos.id_proveedor,productos.id_tipo,productos.producto,productos.tamaño,productos.precio,productos.cantidad,proveedores.proveedor,tipos.tipo from productos INNER JOIN proveedores ON productos.id_proveedor = proveedores.id INNER JOIN tipos on productos.id_tipo = tipos.id";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+            ProductosModel Productos;
+            while (rs.next()) {
+                Productos = new ProductosModel(rs.getInt("id"), rs.getInt("id_proveedor"), rs.getString("proveedor"), rs.getInt("id_tipo"), rs.getString("tipo"), rs.getString("producto"), rs.getString("tamaño"), rs.getFloat("precio"), rs.getInt("cantidad"));
+                productList.add(Productos);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+
+    public void executeQuery(String query) {
+        Connection conn = ConnectorMySQL.getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-	public ClassProductos productoSeleccionado() {
-	if (tablaProduct != null) {
-	    List<ClassProductos> tabla = tablaProduct.getSelectionModel().getSelectedItems();
-	    if (tabla.size() == 1) {
-	        final ClassProductos seleccionada = tabla.get(0);
-	        return seleccionada;
-	    }
-	}
-	return null;
-	}
-	
-	
-	@FXML 
-	private void modificar(ActionEvent event) {
-		String query = "UPDATE datosproduct SET tipoProduct='"+cajatipoProduct.getText()+"',CantidadProducto='"+CAJAnPRODUCT.getText()+"',nombre='"+cajanombreProduct.getText()+"',folioproduct='"+cajafolioProduct.getText()+"',precio='"+cajaprecio.getText()+"',nombreProveedor='"+cajanombreProvee.getText()+"' WHERE IDtipoProduct='"+cajaIDtipoProduct.getText()+"'";
-		executeQuery(query);
-		ObservableList<ClassProductos> list = getPersonList();
-		tablaProduct.getItems().setAll(list);
-		
-		 final ObservableList<ClassProductos> tablaPersonas = tablaProduct.getSelectionModel().getSelectedItems();
-	     tablaPersonas.addListener(selectorTablaProductos);
-		
+    private final ListChangeListener<ProductosModel> selectorTablaProductos
+            = new ListChangeListener<ProductosModel>() {
+
+        @Override
+        public void onChanged(Change<? extends ProductosModel> arg0) {
+            ponerProductoSeleccionada();
+
+        }
+    };
+
+    private void ponerProductoSeleccionada() {
+        try {
+            final ProductosModel producto = productoSeleccionado();
+            if (productList != null) {
+                proveedorTF.setText(producto.getProveedor());
+                cantidadTF.setText(Integer.toString(producto.getCantidad()));
+                tipoProductoTF.setText(producto.getTipo());
+                productoTF.setText(producto.getProducto());
+                precioTF.setText(Float.toString(producto.getPrecio()));
+                tamañoTF.setText(producto.getTamaño());
+                idTF.setText(String.valueOf(producto.getId()));
+            }
+        } catch (Exception e) {
+
+        }
     }
-	
-	@FXML
-	private void eliminar(ActionEvent event) {
-		String query = "DELETE FROM datosproduct WHERE IDtipoProduct="+cajaIDtipoProduct.getText()+"";
-		executeQuery(query);
-		ObservableList<ClassProductos> list = getPersonList();
-		tablaProduct.getItems().setAll(list);
-		
-		 final ObservableList<ClassProductos> tablaPersonas = tablaProduct.getSelectionModel().getSelectedItems();
-	        tablaPersonas.addListener(selectorTablaProductos);
+
+    public ProductosModel productoSeleccionado() {
+        if (tablaProduct != null) {
+            List<ProductosModel> tabla = tablaProduct.getSelectionModel().getSelectedItems();
+            if (tabla.size() == 1) {
+                final ProductosModel seleccionada = tabla.get(0);
+                return seleccionada;
+            }
+        }
+        return null;
     }
-	
-	@FXML
-	private Button Salir;
-	@FXML
-	public void regresarLogin() {
-		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLOGIN.fxml"));
-			Scene scene = new Scene (root2);
-			Stage primaryLayout = new Stage();
-			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasLOGIN");
-			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Salir.getScene().getWindow();
-			nuevaEscena.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML
-	public void cargarListado() {
-		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
-			Scene scene = new Scene (root2);
-			Stage primaryLayout = new Stage();
-			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
-			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Regresar.getScene().getWindow();
-			nuevaEscena.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+
+    @FXML
+    private void modificar(ActionEvent event) {
+        String query = "UPDATE `productos` SET `id_proveedor` = (SELECT proveedores.id from proveedores WHERE proveedores.proveedor = '" + proveedorTF.getText() + "'), `id_tipo` = (SELECT tipos.id from tipos WHERE tipos.tipo = '" + tipoProductoTF.getText() + "'), `producto` = '" + productoTF.getText() + "', `tamaño` = '" + tamañoTF.getText() + "', `precio` = '" + precioTF.getText() + "', `cantidad` = '" + cantidadTF.getText() + "' WHERE `productos`.`id` =" + idTF.getText();
+        executeQuery(query);
+        ObservableList<ProductosModel> list = getPersonList();
+        tablaProduct.getItems().setAll(list);
+
+        final ObservableList<ProductosModel> tablaPersonas = tablaProduct.getSelectionModel().getSelectedItems();
+        tablaPersonas.addListener(selectorTablaProductos);
+
+    }
+
+    @FXML
+    private void eliminar(ActionEvent event) {
+        String query = "DELETE FROM productos WHERE id=" + tablaProduct.getSelectionModel().getSelectedItem().getId();
+        executeQuery(query);
+        ObservableList<ProductosModel> list = getPersonList();
+        tablaProduct.getItems().setAll(list);
+
+        final ObservableList<ProductosModel> tablaPersonas = tablaProduct.getSelectionModel().getSelectedItems();
+        tablaPersonas.addListener(selectorTablaProductos);
+    }
+
+    @FXML
+    private Button Salir;
+
+    @FXML
+    public void regresarLogin() {
+        try {
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLOGIN.fxml"));
+            Scene scene = new Scene(root2);
+            Stage primaryLayout = new Stage();
+            primaryLayout.setScene(scene);
+            primaryLayout.setTitle("FXMLPuntoVentasLOGIN");
+            primaryLayout.show();
+            Stage nuevaEscena = (Stage) this.Salir.getScene().getWindow();
+            nuevaEscena.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void cargarListado() {
+        try {
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
+            Scene scene = new Scene(root2);
+            Stage primaryLayout = new Stage();
+            primaryLayout.setScene(scene);
+            primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
+            primaryLayout.show();
+            Stage nuevaEscena = (Stage) this.Regresar.getScene().getWindow();
+            nuevaEscena.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void agregarProducto() {
+        String query = "INSERT INTO `productos` (`id`, `id_proveedor`, `id_tipo`, `producto`, `tamaño`, `precio`, `cantidad`) VALUES (NULL, (SELECT proveedores.id FROM proveedores where proveedores.proveedor = '" + proveedorTF.getText() + "'), (SELECT tipos.id FROM tipos where tipos.tipo = '" + tipoProductoTF.getText() + "'),'" + productoTF.getText() + " ', '" + tamañoTF.getText() + "', '" + precioTF.getText() + "', '" + cantidadTF.getText() + "');";
+        executeQuery(query);
+        ObservableList<ProductosModel> list = getPersonList();
+        tablaProduct.getItems().setAll(list);
+
+        final ObservableList<ProductosModel> tablaPersonas = tablaProduct.getSelectionModel().getSelectedItems();
+        tablaPersonas.addListener(selectorTablaProductos);
+
+        //INSERT INTO `productos` (`id`, `id_proveedor`, `id_tipo`, `producto`, `tamaño`, `precio`, `cantidad`) VALUES (NULL, '1', '1', 'test', 'grande', '50', '100');
+    }
+
 }
