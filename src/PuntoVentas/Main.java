@@ -19,7 +19,7 @@ public class Main extends Application {
 			this.primaryStage= primaryStage;
 			
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/FXMLPuntoVentasLOGIN.fxml"));
+			loader.setLocation(Main.class.getResource("view/VentasPrueba.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			
 			//Show the scene containing the root layout

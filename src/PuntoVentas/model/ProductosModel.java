@@ -19,19 +19,27 @@ import javafx.collections.ObservableList;
  * @author Hinge
  */
 public class ProductosModel {
-
+    
     private int id;
-    private int id_provedor;
+    private int id_proveedor;
+    private String proveedor;
     private int id_tipo;
+    private String tipo;
     private String producto;
     private String tamaño;
-    private int precio;
+    private float precio;
     private int cantidad;
 
-    public ProductosModel(int id, int id_provedor, int id_tipo, String producto, String tamaño, int precio, int cantidad) {
+    public ProductosModel(int id, int id_proveedor, String proveedor, int id_tipo, String tipo, String producto, String tamaño, float precio, int cantidad) {
+        this(id, id_proveedor, id_tipo, proveedor, tipo, precio, cantidad);
+    }
+
+    public ProductosModel(int id, int id_proveedor, int id_tipo, String proveedor, String tipo, float precio, int cantidad) {
         this.id = id;
-        this.id_provedor = id_provedor;
+        this.id_proveedor = id_proveedor;
+        this.proveedor = proveedor;
         this.id_tipo = id_tipo;
+        this.tipo = tipo;
         this.producto = producto;
         this.tamaño = tamaño;
         this.precio = precio;
@@ -46,12 +54,20 @@ public class ProductosModel {
         this.id = id;
     }
 
-    public int getId_provedor() {
-        return id_provedor;
+    public int getId_proveedor() {
+        return id_proveedor;
     }
 
-    public void setId_provedor(int id_provedor) {
-        this.id_provedor = id_provedor;
+    public void setId_proveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
     }
 
     public int getId_tipo() {
@@ -60,6 +76,14 @@ public class ProductosModel {
 
     public void setId_tipo(int id_tipo) {
         this.id_tipo = id_tipo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getProducto() {
@@ -78,11 +102,11 @@ public class ProductosModel {
         this.tamaño = tamaño;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -93,8 +117,9 @@ public class ProductosModel {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-
-    public static void llenarInformacion(Connection cn, ObservableList<ProductosModel> lista) {
+    
+    
+ public static void llenarInformacion(Connection cn, ObservableList<ProductosModel> lista) {
         String sSQL = "SELECT  id,producto,id_proveedor,id_tipo, tamaño, precio,cantidad  FROM productos WHERE cantidad > 0;";
 
         try {
@@ -102,7 +127,7 @@ public class ProductosModel {
             ResultSet rs = st.executeQuery(sSQL);
             while (rs.next()) {
                 lista.add(new ProductosModel(rs.getInt("id"), rs.getInt("id_proveedor"),
-                        rs.getInt("id_tipo"), rs.getString("producto"), rs.getString("tamaño"), rs.getInt("precio"),
+                        rs.getInt("id_tipo"), rs.getString("producto"), rs.getString("tamaño"), rs.getFloat("precio"),
                         rs.getInt("cantidad")));
 
             }
@@ -167,5 +192,5 @@ public class ProductosModel {
     public String toString() {
         return producto;
     }
-
+    
 }
