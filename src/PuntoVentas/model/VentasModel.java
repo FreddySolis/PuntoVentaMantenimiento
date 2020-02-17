@@ -19,18 +19,18 @@ public class VentasModel {
     private int folio;
     private ProductosModel producto;
     private Date fecha;
-    private int precioUnitario;
+    private float precioUnitario;
     private int cantidad;
-    private int total;
+    private float total;
 
-    public VentasModel(int folio, ProductosModel producto, Date fecha, int total) {
+    public VentasModel(int folio, ProductosModel producto, Date fecha, float total) {
         this.folio = folio;
         this.producto = producto;
         this.fecha = fecha;
         this.total = total;
     }
     
-    public VentasModel(int folio, ProductosModel producto, Date fecha, int precioUnitario, int total) {
+    public VentasModel(int folio, ProductosModel producto, Date fecha, float precioUnitario, float total) {
         this.folio = folio;
         this.producto = producto;
         this.fecha = fecha;
@@ -38,7 +38,7 @@ public class VentasModel {
         this.total = total;
     }
     
-    public VentasModel(int id, int folio, ProductosModel producto, Date fecha, int precioUnitario, int total) {
+    public VentasModel(int id, int folio, ProductosModel producto, java.sql.Date fecha, float precioUnitario, float total) {
         this.id = id;
         this.folio = folio;
         this.producto = producto;
@@ -47,7 +47,7 @@ public class VentasModel {
         this.total = total;
     }
 
-    public VentasModel(int folio, ProductosModel producto, Date fecha, int precioUnitario, int cantidad, int total) {
+    public VentasModel(int folio, ProductosModel producto, Date fecha, float precioUnitario, int cantidad, float total) {
         this.folio = folio;
         this.producto = producto;
         this.fecha = fecha;
@@ -64,7 +64,7 @@ public class VentasModel {
         this.cantidad = cantidad;
     }
     
-    public int getPrecioUnitario() {
+    public float getPrecioUnitario() {
         return precioUnitario;
     }
 
@@ -110,7 +110,7 @@ public class VentasModel {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(float total) {
         this.total = total;
     }
     
@@ -125,7 +125,7 @@ public class VentasModel {
             pst.setInt(2,producto.getId());
             pst.setInt(3,cantidad);
             pst.setDate(4,fecha);
-            pst.setInt(5,total);
+            pst.setFloat(5,total);
             
             return pst.executeUpdate();
             
