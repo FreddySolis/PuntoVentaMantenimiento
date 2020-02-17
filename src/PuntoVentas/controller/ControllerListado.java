@@ -1,7 +1,10 @@
 package PuntoVentas.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +18,7 @@ public class ControllerListado {
 	@FXML
 	public void cargarProveedores() {
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasPROVEEDORES.fxml"));
+			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasPROVEEDORES.fxml")); 
 			Scene scene = new Scene (root2);
 			Stage primaryLayout = new Stage();
 			primaryLayout.setScene(scene);
@@ -31,16 +34,15 @@ public class ControllerListado {
 	@FXML
 	private Button Inventario;
 	@FXML
-	public void cargarInventario() {
+	public void cargarInventario(ActionEvent event) {
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasPRODUCTOS.fxml"));
-			Scene scene = new Scene (root2);
-			Stage primaryLayout = new Stage();
-			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasPRODUCTOS");
-			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Inventario.getScene().getWindow();
-			nuevaEscena.close();
+                    Parent menu_parent = FXMLLoader.load(getClass().getResource
+                    ("../view/FXMLPuntoVentasPRODUCTOS.fxml"));
+                    Scene menu_scene = new Scene(menu_parent);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.hide();
+                    app_stage.setScene(menu_scene);
+                    app_stage.show();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
