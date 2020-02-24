@@ -38,7 +38,7 @@ public class ControllerListado {
 	public void cargarInventario(ActionEvent event) {
 		try {
                     Parent menu_parent = FXMLLoader.load(getClass().getResource
-                    ("../view/FXMLPuntoVentasPRODUCTOS.fxml"));
+                    ("../view/FXMLProductos.fxml"));
                     Scene menu_scene = new Scene(menu_parent);
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.hide();
