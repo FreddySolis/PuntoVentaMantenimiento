@@ -17,12 +17,20 @@ import java.sql.SQLException;
 public class VentasModel {
     private int id;
     private int folio;
-    private ProductosModel producto;
+    private ProductosModel producto;    
     private Date fecha;
     private float precioUnitario;
     private int cantidad;
     private float total;
+    
+    private int id_user;
+    private int id_venta;
+    private int iva;
+    private String folio_content;
 
+    
+    public VentasModel(){}
+    
     public VentasModel(int folio, ProductosModel producto, Date fecha, float total) {
         this.folio = folio;
         this.producto = producto;
@@ -55,7 +63,38 @@ public class VentasModel {
         this.cantidad = cantidad;
         this.total = total;
     }
-
+    
+    public void setIdUser(int user) {
+        this.id_user = user;
+    }
+    
+    public int getIdUser() {
+        return id_user;
+    }
+    
+    public void setFolioC(String folio_content) {
+        this.folio_content = folio_content;
+    }
+    
+    public String getFolioC() {
+        return folio_content;
+    }
+    
+    public void setIva(int iva) {
+        this.iva = iva;
+    }
+    
+    public int getIva() {
+        return iva;
+    }
+    
+    public void setIdVenta(int venta) {
+        this.id_venta = venta;
+    }
+    
+    public int getIdVenta() {
+        return id_venta;
+    }
     public int getCantidad() {
         return cantidad;
     }
@@ -134,6 +173,11 @@ public class VentasModel {
             return 0;
             
         }
+    }
+     
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
     
     
