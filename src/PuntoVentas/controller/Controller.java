@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Controller {
         
@@ -55,9 +56,9 @@ public class Controller {
                     usuario = UsersModel.find_user(conexion, txtusuario);  
                     admin = usuario.split(";");
                     if(admin[1].equals("1")){
-                        mostra_Menu();
+                        mostra_Menu("FXMLMenuAdmin.fxml");
                     }else{
-                        mostra_Menu();
+                        mostra_Menu("FXMLMenu.fxml");
                     }
                    
                 }else{
@@ -75,14 +76,15 @@ public class Controller {
 
     }
 
-    public void mostra_Menu(){
+    public void mostra_Menu(String ruta){
         try {           
 
-            AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("../view/FXMLPuntoVentasLISTADO.fxml"));
+            AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("../view/"+ruta));
             Scene scene = new Scene (root2);
             Stage primaryLayout = new Stage();
             primaryLayout.setScene(scene);
-            primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
+            primaryLayout.setTitle("FXMLMenu");
+            primaryLayout.initStyle(StageStyle.TRANSPARENT);
             primaryLayout.show();
             Stage nuevaEscena =(Stage) this.entrar.getScene().getWindow();
             nuevaEscena.close();
