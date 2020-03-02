@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #f9a825" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.FXMLVentasController">
+  <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" height="138.0" layoutX="290.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="background-color:transparent;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;&#10;" width="262.5966796875">
+      <fill>
+        <Color blue="0.353" green="0.851" red="1.000" fx:id="x5" />
+      </fill>
+    </Rectangle>
+    <TableView fx:id="tblProductos" layoutX="12.0" layoutY="94.0" prefHeight="298.0" prefWidth="263.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 )">
+      <columns>
+        <TableColumn fx:id="clnProductos" prefWidth="75.0" text="Productos" />
+        <TableColumn fx:id="clnPrecio" prefWidth="75.0" text="Precio" />
+        <TableColumn fx:id="clnExistencias" prefWidth="75.0" text="Existencias" />
+      </columns>
+    </TableView>
+    <TableView fx:id="tlbVentas" layoutX="562.0" layoutY="59.0" prefHeight="298.0" prefWidth="232.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 )">
+      <columns>
+        <TableColumn fx:id="clnVenta" prefWidth="75.0" text="Producto" />
+        <TableColumn fx:id="clnPrecioVenta" prefWidth="75.0" text="Precio" />
+        <TableColumn fx:id="clnCantidad" prefWidth="75.0" text="Cantidad" />
+      </columns>
+    </TableView>
+    <Button fx:id="btnEliminar" layoutX="630.0" layoutY="24.0" minHeight="27.0" mnemonicParsing="false" onAction="#quitarProducto" prefHeight="27.0" prefWidth="164.0" style="-fx-background-radius: 50;&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-padding: 3px 10px 3px 10px;&#10;-fx-background-color: #c9bf44;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" text="Eliminar producto">
+      <font>
+        <Font size="16.0" fx:id="x2" />
+      </font>
+    </Button>
+    <Button fx:id="txtVenta" layoutX="590.0" layoutY="361.0" minHeight="27.0" mnemonicParsing="false" onAction="#realizarVenta" prefHeight="31.0" prefWidth="176.0" style="-fx-background-radius: 50;&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-padding: 3px 10px 3px 10px;&#10;-fx-background-color: #c9bf44;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" text="Terminar venta">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Text layoutX="293.0" layoutY="280.0" scaleX="1.0" scaleY="1.0024479258456855" strokeType="OUTSIDE" strokeWidth="0.0" text="Producto seleccionado">
+      <font>
+        <Font name="System Bold" size="24.0" fx:id="x3" />
+      </font>
+    </Text>
+    <Label fx:id="lblProducto" font="$x1" layoutX="325.0" layoutY="278.0" text="Nombre del producto" />
+    <Label font="$x1" layoutX="318.0" layoutY="313.0" text="Cantidad" />
+    <TextField fx:id="txtCantidad" layoutX="425.0" layoutY="313.0" prefHeight="27.0" prefWidth="73.0" promptText="Cantidad" />
+    <Button fx:id="btnAgregar" font="$x1" layoutX="376.0" layoutY="354.0" mnemonicParsing="false" onAction="#agregarVentas" style="-fx-background-radius: 50;&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-padding: 3px 10px 3px 10px;&#10;-fx-background-color: #c9bf44;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" text="Agregar" />
+    <TextField layoutX="12.0" layoutY="58.0" prefHeight="31.0" prefWidth="185.0" promptText="Buscar un producto" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-text-fill: #000000;" />
+    <Button font="$x2" layoutX="202.0" layoutY="58.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="73.0" style="-fx-background-radius: 50;&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-padding: 3px 10px 3px 10px;&#10;-fx-background-color: #c9bf44;&#10;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" text="Buscar" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffd95a" height="213.0" layoutX="302.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" width="238.0" />
+    <Text font="$x3" layoutX="307.0" layoutY="53.0" scaleX="1.0" scaleY="1.0024479258456855" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de la venta" />
+    <Label font="$x1" layoutX="325.0" layoutY="58.0" text="Folio" />
+    <Label font="$x1" layoutX="310.0" layoutY="85.0" text="Productos" />
+    <Label font="$x1" layoutX="311.0" layoutY="114.0" text="Total" />
+    <Label font="$x1" layoutX="318.0" layoutY="146.0" text="IVA" />
+    <Label font="$x1" layoutX="396.0" layoutY="146.0" text="\$" />
+    <Label font="$x1" layoutX="362.0" layoutY="114.0" text="\$" />
+    <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="12.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../../../Downloads/computer-icons-user-customer-service-download-others.png" />
+      </image>
+    </ImageView>
+    <Label layoutX="74.0" layoutY="5.0" text="Atendido por:">
+      <font>
+        <Font size="18.0" fx:id="x4" />
+      </font>
+    </Label>
+    <Label font="$x4" layoutX="74.0" layoutY="31.0" text="Nombre empleado" />
+      <TextField fx:id="txtFolio" layoutX="414.0" layoutY="60.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtTotal" disable="true" layoutX="413.0" layoutY="116.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtIva" disable="true" layoutX="413.0" layoutY="148.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
+  </children>
+</AnchorPane>

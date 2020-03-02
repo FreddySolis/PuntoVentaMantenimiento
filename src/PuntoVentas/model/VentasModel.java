@@ -8,7 +8,11 @@ package PuntoVentas.model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,64 +20,22 @@ import java.sql.SQLException;
  */
 public class VentasModel {
     private int id;
-    private int folio;
-    private ProductosModel producto;
-    private Date fecha;
-    private float precioUnitario;
-    private int cantidad;
-    private float total;
+    private String folio;
 
-    public VentasModel(int folio, ProductosModel producto, Date fecha, float total) {
+    public VentasModel(String folio) {
         this.folio = folio;
-        this.producto = producto;
-        this.fecha = fecha;
-        this.total = total;
     }
     
-    public VentasModel(int folio, ProductosModel producto, Date fecha, float precioUnitario, float total) {
-        this.folio = folio;
-        this.producto = producto;
-        this.fecha = fecha;
-        this.precioUnitario = precioUnitario;
-        this.total = total;
-    }
-    
-    public VentasModel(int id, int folio, ProductosModel producto, java.sql.Date fecha, float precioUnitario, float total) {
+    public VentasModel(int id,String folio) {
         this.id = id;
         this.folio = folio;
-        this.producto = producto;
-        this.fecha = fecha;
-        this.precioUnitario = precioUnitario;
-        this.total = total;
-    }
-
-    public VentasModel(int folio, ProductosModel producto, Date fecha, float precioUnitario, int cantidad, float total) {
-        this.folio = folio;
-        this.producto = producto;
-        this.fecha = fecha;
-        this.precioUnitario = precioUnitario;
-        this.cantidad = cantidad;
-        this.total = total;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
     
-    public float getPrecioUnitario() {
-        return precioUnitario;
+    public VentasModel() {
+        this.id = 0;
+        this.folio = "";
     }
 
-    public void setPrecioUnitario(int precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    
-    
     public int getId() {
         return id;
     }
@@ -82,51 +44,22 @@ public class VentasModel {
         this.id = id;
     }
 
-    public int getFolio() {
+    public String getFolio() {
         return folio;
     }
 
-    public void setFolio(int folio) {
+    public void setFolio(String folio) {
         this.folio = folio;
     }
 
-    public ProductosModel getProducto() {
-        return producto;
-    }
-
-    public void setProducto(ProductosModel producto) {
-        this.producto = producto;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
     
-    
-     public int guardarInformacion(Connection cn){
-         String sSQL = "INSERT INTO ventas (folio,id_producto,cantidad,fecha,total) "
-                 + "VALUES (?,?,?,?,?);";
+    public int guardarInformacion(Connection cn){
+         String sSQL = "INSERT INTO ventas (folio) VALUES (?);";
             
         try {  
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(1,folio);
-            pst.setInt(2,producto.getId());
-            pst.setInt(3,cantidad);
-            pst.setDate(4,fecha);
-            pst.setFloat(5,total);
-            
+            pst.setString(1,folio);
+           
             return pst.executeUpdate();
             
         } catch (SQLException ex) {
@@ -134,6 +67,23 @@ public class VentasModel {
             return 0;
             
         }
+    }
+    
+    
+     public VentasModel buscarVenta(Connection cn){
+        String sSQL = "SELECT id,folio FROM ventas WHERE folio = "+folio;
+        VentasModel ventamodel = null;    
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            while (rs.next()) {
+               ventamodel = new VentasModel(rs.getInt("id"),rs.getString("folio"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ventamodel;
     }
     
     
