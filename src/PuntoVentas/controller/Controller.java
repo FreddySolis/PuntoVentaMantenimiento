@@ -53,11 +53,13 @@ public class Controller {
             if(password != null){
                 if(password.equals(txtpassword)){
                     usuario = UsersModel.find_user(conexion, txtusuario);  
-                    
-                    if(usuario.get_admin() == 1){
-                        mostra_Menu();/////////////Admin
+                    admin = usuario.split(";");
+                    if(admin[1].equals("1")){
+                        PuntoVentas.Main.isAdmin = true;
+                        mostra_Menu();
                     }else{
-                        mostra_Menu();/////////////Cajero
+                        PuntoVentas.Main.isAdmin = false;
+                        mostra_Menu();
                     }
                    
                 }else{
