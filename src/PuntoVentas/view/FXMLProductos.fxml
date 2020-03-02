@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="585.0" prefWidth="1104.5" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.ControllerProductos">
+  <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9a825" height="69.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1105.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="14.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="49.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="35.0" layoutX="20.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="27.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="17.0" layoutX="32.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" width="14.0" />
+    <Button layoutX="85.0" layoutY="4.0" mnemonicParsing="false" onAction="#cargarListado" prefHeight="59.000099999997474" prefWidth="113.0" style="-fx-background-color:    #fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-background-radius: 50;" text="Home" textFill="BLACK">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Button font="$x1" layoutX="816.0" layoutY="3.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="212.0" style="-fx-background-color:#fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;" text="Historial de ventas" />
+    <Button font="$x1" layoutX="524.0" layoutY="4.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="113.0" style="-fx-background-color:#fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;" text="Cajeros" />
+    <Button font="$x1" layoutX="661.0" layoutY="4.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="137.0" style="-fx-background-color:  #fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;" text="Provedores" />
+    <Button font="$x1" layoutX="372.0" layoutY="5.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="130.0" style="-fx-background-color:    #fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;" text="Inventario" />
+    <Button font="$x1" layoutX="217.0" layoutY="5.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="130.0" style="-fx-background-color:      #fff176;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-" text="Productos" />
+    <TableView fx:id="productTable" layoutX="32.0" layoutY="126.0" prefHeight="449.0" prefWidth="513.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+      <columns>
+        <TableColumn fx:id="colName" prefWidth="75.0" text="Nombre" />
+        <TableColumn fx:id="colType" maxWidth="5000.0" minWidth="10.0" prefWidth="75.0" text="Tipo" />
+        <TableColumn fx:id="colSize" prefWidth="75.0" text="Tamaño" />
+        <TableColumn fx:id="colPrice" prefWidth="75.0" text="Precio" />
+        <TableColumn fx:id="colAmount" prefWidth="75.0" text="Cantidad" />
+        <TableColumn fx:id="colProvider" prefWidth="75.0" text="Proveedor" />
+      </columns>
+    </TableView>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1e2e1" height="383.0" layoutX="663.0" layoutY="150.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" width="392.0" />
+    <Text layoutX="746.0" layoutY="186.0" scaleX="1.0" scaleY="1.0024479258456855" strokeType="OUTSIDE" strokeWidth="0.0" text="Objeto seleccionado">
+      <font>
+        <Font name="System Bold Italic" size="24.0" />
+      </font>
+    </Text>
+    <Label font="$x1" layoutX="662.0" layoutY="203.0" text="Proveedor" />
+    <Label font="$x1" layoutX="663.0" layoutY="269.0" text="Tipo" />
+    <Label font="$x1" layoutX="662.0" layoutY="337.0" text="Precio" />
+    <Label font="$x1" layoutX="662.0" layoutY="301.0" text="Tamaño" />
+    <Label font="$x1" layoutX="663.0" layoutY="374.0" text="Cantidad" />
+    <Label font="$x1" layoutX="662.0" layoutY="234.0" text="Nombre" />
+    <Button fx:id="btnAdd" font="$x1" layoutX="864.0" layoutY="478.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color:    #32c11d  ;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-background-radius: 50;" text="Nuevo producto" textAlignment="RIGHT" textFill="WHITE" />
+    <Button fx:id="btnEdit" font="$x1" layoutX="667.0" layoutY="478.0" mnemonicParsing="false" onAction="#modificar" prefHeight="35.0" prefWidth="182.0" style="-fx-background-color:    #ffb229;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-background-radius: 50;" text="Editar producto" textAlignment="RIGHT" textFill="BLACK" />
+    <Button fx:id="btnDelete" font="$x1" layoutX="182.0" layoutY="75.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color:    #dc3545;&#10; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );&#10;-fx-background-radius: 30, 30, 29, 28;&#10;-fx-background-radius: 50;" text="Eliminar producto" textAlignment="RIGHT" textFill="WHITE" />
+      <TextField fx:id="tFName" layoutX="798.0" layoutY="237.0" promptText="Nombre">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="tFTamano" layoutX="798.0" layoutY="304.0" promptText="Tamaño">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="tFPrice" layoutX="798.0" layoutY="340.0" promptText="Precio">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="tFAmount" layoutX="798.0" layoutY="377.0" promptText="Cantidad">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <TextField fx:id="idTF" editable="false" layoutX="553.0" layoutY="550.0" prefHeight="7.0" prefWidth="23.0" visible="false">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <ComboBox fx:id="cBProveedor" layoutX="798.0" layoutY="206.0" prefWidth="150.0" />
+      <ComboBox fx:id="cBType" layoutX="798.0" layoutY="272.0" prefWidth="150.0" />
+  </children>
+</AnchorPane>

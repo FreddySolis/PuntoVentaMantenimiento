@@ -30,7 +30,7 @@ public class ProductosModel {
     private float precio;
     private int cantidad;
 
-    public ProductosModel(int id, int id_proveedor, String proveedor, int id_tipo, String tipo, String producto, String tamaño, float precio, int cantidad) {
+    public ProductosModel(int id, int id_proveedor, String proveedor, int id_tipo, String tipo, float precio, int cantidad) {
         this(id, id_proveedor, id_tipo, proveedor, tipo, precio, cantidad);
     }
     

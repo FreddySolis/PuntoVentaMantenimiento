@@ -8,6 +8,7 @@ package PuntoVentas.controller;
 import PuntoVentas.model.ConnectorMySQL;
 import PuntoVentas.model.ProductosModel;
 import PuntoVentas.model.VentasModel;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -16,7 +17,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -25,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -107,7 +113,7 @@ public class VentasPruebaController implements Initializable {
     public void gestionarEventosVentas() {
         tlbVentas.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends VentasModel> observable, VentasModel oldValue, VentasModel valorSeleccionado) -> {
             if (valorSeleccionado != null) {
-                lblProducto.setText("Por vender: "+valorSeleccionado.getProducto().getProducto());
+                lblProducto.setText("Por vender: " + valorSeleccionado.getProducto().getProducto());
                 venta = valorSeleccionado;
             }
         });
@@ -116,7 +122,7 @@ public class VentasPruebaController implements Initializable {
     @FXML
     void agregarVentas(ActionEvent event) {
         try {
-            if (Integer.parseInt(txtCantidad.getText()) > producto.getCantidad() || Integer.parseInt(txtCantidad.getText()) < 1 ) {
+            if (Integer.parseInt(txtCantidad.getText()) > producto.getCantidad() || Integer.parseInt(txtCantidad.getText()) < 1) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
                 alert.setHeaderText("No hay suficientes producto");
@@ -179,7 +185,7 @@ public class VentasPruebaController implements Initializable {
                     listaVentas.clear();
                     tblProductos.refresh();
                     tlbVentas.refresh();
-                    
+
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Ha ocurrido un error");
@@ -194,7 +200,20 @@ public class VentasPruebaController implements Initializable {
             System.out.print("Error: " + e);
         }
     }
-    
-    
+
+    @FXML
+    void regresarHome(MouseEvent event) {
+        try {
+            Parent menu_parent = FXMLLoader.load(getClass().getResource("../view/FXMLPuntoVentasLISTADO.fxml"));
+            Scene menu_scene = new Scene(menu_parent);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app_stage.hide();
+            app_stage.setScene(menu_scene);
+            app_stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
