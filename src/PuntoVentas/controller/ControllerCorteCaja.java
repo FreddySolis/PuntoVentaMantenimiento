@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,9 +83,6 @@ public class ControllerCorteCaja implements Initializable{
     private Label txtTotal;
 
     @FXML
-    private Label txtIva;
-
-    @FXML
     private RadioButton tbTodos;
     
     @FXML
@@ -92,7 +90,7 @@ public class ControllerCorteCaja implements Initializable{
     
     public void initialize(URL url, ResourceBundle rb) {
         cargarUsuarios();
-        colFolio.setCellValueFactory(new PropertyValueFactory<>("folio_content"));
+        colFolio.setCellValueFactory(new PropertyValueFactory<>("folio"));
         colProducto.setCellValueFactory(new PropertyValueFactory<>("producto"));
         colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         colIva.setCellValueFactory(new PropertyValueFactory<>("iva"));
@@ -103,18 +101,45 @@ public class ControllerCorteCaja implements Initializable{
     
     @FXML
     void seleccion_caja(ActionEvent event) {
-        System.out.println("Fecha inicio: "+dtFechaI.getValue()+" Fecha Final: "+ dtFechaF.getValue() + " Usuario Seleccionado: "+cbListaUsuarios.getSelectionModel().getSelectedItem());
+        //System.out.println("Fecha inicio: "+dtFechaI.getValue()+" Fecha Final: "+ dtFechaF.getValue() + " Usuario Seleccionado: "+cbListaUsuarios.getSelectionModel().getSelectedItem());
         if(dtFechaI.getValue() != null && dtFechaF.getValue() != null){
             
-            if(cbListaUsuarios.getSelectionModel().getSelectedItem()!=null){
+            if(cbListaUsuarios.getSelectionModel().getSelectedItem()!=null && cbListaUsuarios.isDisable() == false){
+                if(tbCaja != null){
+                    tbCaja.getItems().clear();
+                    txtTotal.setText("n/o");
+                    txtVentas.setText("n/o");
+                    txtArtVen.setText("n/o");
+                }
+                System.out.println("Fecha inicio: "+dtFechaI.getValue()+" Fecha Final: "+ dtFechaF.getValue() + " Usuario Seleccionado: "+cbListaUsuarios.getSelectionModel().getSelectedItem());
                 sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() 
                 +"' AND productos_ventas.id_usuarios =" + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() ;
                 productList = getProductoVentaList(); 
-                tbCaja.getItems().addAll(productList);
+                for(VentasModel aux:productList){
+                    tbCaja.getItems().add(aux);
+                }
+                txtTotal.setText(Integer.toString(VentasModel.getIngresosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtVentas.setText(Integer.toString(VentasModel.getVentasUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtArtVen.setText(Integer.toString(VentasModel.getArticulosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                
+                //tbCaja.getItems().addAll(productList);
             }else if(tbTodos.isSelected()){
+                if(tbCaja != null){
+                    tbCaja.getItems().clear();
+                    txtTotal.setText("n/o");
+                    txtVentas.setText("n/o");
+                    txtArtVen.setText("n/o");
+                }
+                System.out.println("Fecha inicio: "+dtFechaI.getValue() +" Fecha Final: "+ dtFechaF.getValue() + " Usuario Seleccionado: "+tbTodos.isSelected());
                 sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() +"'"; 
                 productList = getProductoVentaList(); 
-                tbCaja.getItems().addAll(productList);
+                for(VentasModel aux:productList){
+                    tbCaja.getItems().add(aux);
+                }
+                txtTotal.setText(Integer.toString(VentasModel.getIngresos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtVentas.setText(Integer.toString(VentasModel.getVentas(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtArtVen.setText(Integer.toString(VentasModel.getArticulos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                //tbCaja.getItems().addAll(productList);
 
             }else{
                 lbError.setText("Usuario o Usuarios no establecios");
@@ -161,7 +186,7 @@ public class ControllerCorteCaja implements Initializable{
                 product.setFecha(rs.getDate("productos_ventas.fecha"));
                 product.setTotal(rs.getInt("productos_ventas.total"));
                 product.setIva(rs.getInt("productos_ventas.iva"));
-                product.setFolioC(rs.getString("ventas.folio"));
+                product.setFolio(rs.getInt("ventas.folio"));
                 System.out.println(product);
                 productList.add(product);
             }
@@ -175,8 +200,8 @@ public class ControllerCorteCaja implements Initializable{
     void selecionTodo(MouseEvent event) {
         if(cbListaUsuarios.isDisable()){
             cbListaUsuarios.setDisable(false);
-            sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() 
-                +"' AND productos_ventas.id_usuarios =" + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() ;
+            /*sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() 
+                +"' AND productos_ventas.id_usuarios =" + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() ;*/
         }else{
             cbListaUsuarios.setDisable(true);
             sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() +"'"; 
@@ -188,4 +213,6 @@ public class ControllerCorteCaja implements Initializable{
         UsersModel.all_user(conexion, usersList);        
         cbListaUsuarios.getItems().addAll(usersList);
     }
+    
+    
 }

@@ -5,10 +5,14 @@
  */
 package PuntoVentas.model;
 
+import PuntoVentas.controller.ConnectorMySQL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 
 /**
  *
@@ -178,6 +182,126 @@ public class VentasModel {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+    
+    public static int getIngresos(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF){
+        String sSQL = "SELECT SUM(total) totalV  FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"'"; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("totalV");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma;        
+    }
+    
+    public static int getVentas(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF){
+        String sSQL = "SELECT COUNT(total) cont_ventas FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"'"; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("cont_ventas");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma; 
+    }
+            
+    public static int getArticulos(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF){
+        String sSQL = "SELECT SUM(cantidad) can_productos FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"'"; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("can_productos");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma; 
+    }
+    
+    public static int getIngresosUser(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF, int user){
+        String sSQL = "SELECT SUM(total) totalV  FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"' AND productos_ventas.id_usuarios =" + user ; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("totalV");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma;        
+    }
+    
+    public static int getVentasUser(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF, int user){
+        String sSQL = "SELECT COUNT(total) cont_ventas FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"' AND productos_ventas.id_usuarios =" + user; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("cont_ventas");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma; 
+    }
+            
+    public static int getArticulosUser(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF, int user){
+        String sSQL = "SELECT SUM(cantidad) can_productos FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"' AND productos_ventas.id_usuarios =" + user; 
+        int suma = -1;
+        //Statement st;
+        //ResultSet rs;
+        
+        try {
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(sSQL);        
+            ProductosModel producto;
+            while (rs.next()) {                    
+               suma = rs.getInt("can_productos");
+            }
+            return suma;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return suma; 
     }
     
     

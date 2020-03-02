@@ -74,27 +74,22 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Label layoutX="20.0" layoutY="269.0" prefHeight="60.0" prefWidth="163.0" text="Cantidad de artículos vendidos: " wrapText="true">
+      <Label layoutX="21.0" layoutY="269.0" prefHeight="60.0" prefWidth="163.0" text="Cantidad de artículos vendidos: " wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="txtVentas" layoutX="248.0" layoutY="238.0" prefHeight="31.0" prefWidth="67.0" text="23" textAlignment="CENTER">
+      <Label fx:id="txtVentas" layoutX="233.0" layoutY="238.0" prefHeight="31.0" prefWidth="67.0" text="n/o" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="txtArtVen" layoutX="248.0" layoutY="299.0" prefHeight="31.0" prefWidth="67.0" text="23">
+      <Label fx:id="txtArtVen" layoutX="234.0" layoutY="299.0" prefHeight="31.0" prefWidth="67.0" text="n/o">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="txtTotal" layoutX="229.0" layoutY="365.0" prefHeight="31.0" prefWidth="67.0" text="23">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="txtIva" layoutX="229.0" layoutY="334.0" prefHeight="31.0" prefWidth="67.0" text="23">
+      <Label fx:id="txtTotal" layoutX="234.0" layoutY="359.0" prefHeight="31.0" prefWidth="67.0" text="n/o">
          <font>
             <Font size="18.0" />
          </font>
@@ -105,7 +100,7 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Label fx:id="lbError" layoutX="565.0" layoutY="15.0" text="Errores" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="lbError" layoutX="523.0" layoutY="20.0" text="Errores" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="18.0" />
          </font>
