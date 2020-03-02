@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PuntoVentas.view;
+package PuntoVentas.controller;
 
 import PuntoVentas.model.ConnectorMySQL;
+import PuntoVentas.model.ConnectorMySQL;
+import PuntoVentas.model.ProductosModel;
 import PuntoVentas.model.ProductosModel;
 import PuntoVentas.model.ProductosVentas;
+import PuntoVentas.model.ProductosVentas;
+import PuntoVentas.model.VentasModel;
 import PuntoVentas.model.VentasModel;
 import java.net.URL;
 import java.util.Calendar;
