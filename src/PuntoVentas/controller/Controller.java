@@ -40,7 +40,7 @@ public class Controller {
     public void cargarListado(ActionEvent event){
         String[] admin = null;
         String password = null;
-        String usuario = null;
+        UsersModel usuario = null;
         String txtusuario = CAJAusuario.getText();
         String txtpassword = CAJAcontrasenia.getText();       
 
@@ -53,11 +53,11 @@ public class Controller {
             if(password != null){
                 if(password.equals(txtpassword)){
                     usuario = UsersModel.find_user(conexion, txtusuario);  
-                    admin = usuario.split(";");
-                    if(admin[1].equals("1")){
-                        mostra_Menu();
+                    
+                    if(usuario.get_admin() == 1){
+                        mostra_Menu();/////////////Admin
                     }else{
-                        mostra_Menu();
+                        mostra_Menu();/////////////Cajero
                     }
                    
                 }else{

@@ -33,6 +33,9 @@ public class ProductosModel {
     public ProductosModel(int id, int id_proveedor, String proveedor, int id_tipo, String tipo, float precio, int cantidad) {
         this(id, id_proveedor, id_tipo, proveedor, tipo, precio, cantidad);
     }
+    
+    public ProductosModel(){
+    }
 
     public ProductosModel(int id, int id_proveedor, int id_tipo, String proveedor, String tipo, float precio, int cantidad) {
         this.id = id;
@@ -186,6 +189,24 @@ public class ProductosModel {
             e.printStackTrace();
             return 0;
         }
+    }
+    
+    public static void corteCaka(Connection cn, ObservableList<ProductosModel> lista, int id_Proyecto, String fechaI, String fechaF){
+        String sSQL = "SELECT * FROM `productos_ventas` WHERE fecha BETWEEN '"+ fechaI +"' AND '"+ fechaF +"'"; 
+        String sSQL2 = "SELECT * FROM `productos_ventas` WHERE fecha BETWEEN '"+ fechaI +"' AND '"+ fechaF +"'"; 
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            while (rs.next()) {
+                lista.add(new ProductosModel(rs.getInt("id"), rs.getInt("id_proveedor"),
+                        rs.getInt("id_tipo"), rs.getString("producto"), rs.getString("tamaño"), rs.getInt("precio"),
+                        rs.getInt("cantidad")));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     @Override
