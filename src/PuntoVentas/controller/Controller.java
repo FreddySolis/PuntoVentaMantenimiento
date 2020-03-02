@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Controller {
-        
+
     private ConnectorMySQL conexion;
     @FXML
     private Label lbError;
@@ -37,60 +37,64 @@ public class Controller {
     private TextField CAJAusuario;
     @FXML
     private PasswordField CAJAcontrasenia;
-    @FXML	
-    public void cargarListado(ActionEvent event){
+
+    @FXML
+    public void cargarListado(ActionEvent event) {
         String[] admin = null;
         String password = null;
-        String usuario = null;
+        UsersModel usuario = null;
         String txtusuario = CAJAusuario.getText();
-        String txtpassword = CAJAcontrasenia.getText();       
+        String txtpassword = CAJAcontrasenia.getText();
 
-        if(txtusuario.equals("") || txtpassword.equals("")){
+        if (txtusuario.equals("") || txtpassword.equals("")) {
             lbError.setText("Campos requeridos vacios");
             lbError.setVisible(true);
 
-        }else{
+        } else {
             password = UsersModel.get_password(conexion, txtusuario);
-            if(password != null){
-                if(password.equals(txtpassword)){
-                    usuario = UsersModel.find_user(conexion, txtusuario);  
+            if (password != null) {
+                if (password.equals(txtpassword)) {
+                    usuario = UsersModel.find_user(conexion, txtusuario);
                     admin = usuario.split(";");
-                    if(admin[1].equals("1")){
+                    if (admin[1].equals("1")) {
                         mostra_Menu("FXMLMenuAdmin.fxml");
-                    }else{
+                        PuntoVentas.Main.isAdmin = true;
+                    } else {
                         mostra_Menu("FXMLMenu.fxml");
+                        PuntoVentas.Main.isAdmin = false;
                     }
-                   
-                }else{
+
+                } else {
                     lbError.setText("Contraseña incorrecta");
                     lbError.setVisible(true);
                 }
-            }else{
+
+                CAJAusuario.clear();
+                CAJAcontrasenia.clear();
+
+            } else {
                 lbError.setText("No existe ususario");
                 lbError.setVisible(true);
             }
-        }            
 
-        CAJAusuario.clear();
-        CAJAcontrasenia.clear();
-
+        }
     }
 
-    public void mostra_Menu(String ruta){
-        try {           
+    public void mostra_Menu(String ruta) {
+        try {
 
-            AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("../view/"+ruta));
-            Scene scene = new Scene (root2);
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("../view/" + ruta));
+            Scene scene = new Scene(root2);
             Stage primaryLayout = new Stage();
             primaryLayout.setScene(scene);
             primaryLayout.setTitle("FXMLMenu");
             primaryLayout.initStyle(StageStyle.TRANSPARENT);
             primaryLayout.show();
-            Stage nuevaEscena =(Stage) this.entrar.getScene().getWindow();
+            Stage nuevaEscena = (Stage) this.entrar.getScene().getWindow();
             nuevaEscena.close();
 
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

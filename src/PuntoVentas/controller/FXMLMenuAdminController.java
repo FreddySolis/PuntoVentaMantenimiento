@@ -15,8 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -72,10 +70,22 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void cajeros(MouseEvent event) {
+        try {
+            createPage("FXMLVentas");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+		}
     }
 
     @FXML
     private void recorteCaja(MouseEvent event) {
+        try {
+            createPage("FXMLPuntoVentasCorteCaja");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+		}
     }
 
     @FXML
@@ -88,10 +98,10 @@ public class FXMLMenuAdminController implements Initializable {
 		}
     }
 
-    @FXML
+   @FXML
     private void ventas(MouseEvent event) {
         try {
-            createPage("VentasPrueba");
+            createPage("FXMLVentas");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,6 +110,12 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void proveedores(MouseEvent event) {
+        try {
+            createPage("FXMLProveedores");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+		}
     }
 
     @FXML
@@ -108,6 +124,7 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void logout(MouseEvent event) {
+        
     }
     
     public void createPage(String inter){

@@ -68,6 +68,11 @@ public class VentasModel {
             
         }
     }
+     
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
     
     
      public VentasModel buscarVenta(Connection cn){
