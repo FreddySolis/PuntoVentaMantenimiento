@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -27,26 +28,23 @@ import javafx.util.Duration;
  * @author JulioCaballero
  */
 public class FXMLMenuAdminController implements Initializable {
-    
+
     @FXML
     private AnchorPane apContenedor;
-    
-    private  AnchorPane home;
+
+    private AnchorPane home;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void mostrarCrearProyecto(MouseEvent event) {
     }
 
-   @FXML
+    @FXML
     private void min(MouseEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
@@ -60,23 +58,18 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void close(MouseEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-
-    @FXML
-    private void mostrarSolicitudes(MouseEvent event) {
     }
 
     @FXML
     private void cajeros(MouseEvent event) {
         try {
-            createPage("FXMLVentas");
+            createPage("FXMLPuntoVentasREGISTRO");
 
         } catch (Exception e) {
             e.printStackTrace();
-		}
+        }
     }
 
     @FXML
@@ -86,7 +79,7 @@ public class FXMLMenuAdminController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-		}
+        }
     }
 
     @FXML
@@ -96,17 +89,17 @@ public class FXMLMenuAdminController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-		}
+        }
     }
 
-   @FXML
+    @FXML
     private void ventas(MouseEvent event) {
         try {
             createPage("FXMLVentas");
 
         } catch (Exception e) {
             e.printStackTrace();
-		}
+        }
     }
 
     @FXML
@@ -116,7 +109,7 @@ public class FXMLMenuAdminController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-		}
+        }
     }
 
     @FXML
@@ -125,34 +118,29 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void logout(MouseEvent event) {
-          try {
-                AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("../view/FXMLLogin2"));
-                Scene scene = new Scene(root2);
-                Stage primaryLayout = new Stage();
-                primaryLayout.setScene(scene);
-                primaryLayout.setTitle("FXMLLogin");
-                primaryLayout.show();
-                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                app_stage.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
-    
-    public void createPage(String inter){
         try {
-            home = FXMLLoader.load(getClass().getResource("../view/"+ inter +".fxml"));
+            Parent menu_parent = FXMLLoader.load(getClass().getResource("../view/FXMLLogin2.fxml"));
+            Scene menu_scene = new Scene(menu_parent);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app_stage.hide();
+            app_stage.setScene(menu_scene);
+            app_stage.show();
+        } catch (IOException e) {
+        }
+    }
+
+    public void createPage(String inter) {
+        try {
+            home = FXMLLoader.load(getClass().getResource("../view/" + inter + ".fxml"));
             setNode(home);
         } catch (IOException ex) {
             Logger.getLogger(FXMLMenuAdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    private  void setNode(Node node){
+
+    private void setNode(Node node) {
         apContenedor.getChildren().clear();
-        apContenedor.getChildren().add((Node)node);
+        apContenedor.getChildren().add((Node) node);
         FadeTransition ft = new FadeTransition(Duration.millis(500));
         ft.setNode(node);
         ft.setFromValue(0.1);
@@ -160,6 +148,6 @@ public class FXMLMenuAdminController implements Initializable {
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
         ft.play();
-        
+
     }
 }

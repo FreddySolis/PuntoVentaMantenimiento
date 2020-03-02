@@ -16,9 +16,11 @@ import PuntoVentas.model.VentasModel;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,6 +69,11 @@ public class FXMLVentasController implements Initializable {
     private TextField txtTotal;
     @FXML
     private TextField txtIva;
+    @FXML
+    private TextField txtBuscar;
+
+ 
+
 
     @FXML
     private TableView<ProductosModel> tblProductos;
@@ -157,6 +164,13 @@ public class FXMLVentasController implements Initializable {
         } catch (Exception e) {
             System.out.print("Error: " + e);
         }
+    }
+    
+    @FXML
+    void buscar(ActionEvent event) {
+        
+        listaProductos.stream().filter(t -> t.getProducto().equals(txtBuscar.getText()));
+        
     }
 
     @FXML
