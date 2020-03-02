@@ -55,8 +55,10 @@ public class Controller {
                     usuario = UsersModel.find_user(conexion, txtusuario);  
                     admin = usuario.split(";");
                     if(admin[1].equals("1")){
+                        PuntoVentas.Main.isAdmin = true;
                         mostra_Menu();
                     }else{
+                        PuntoVentas.Main.isAdmin = false;
                         mostra_Menu();
                     }
                    

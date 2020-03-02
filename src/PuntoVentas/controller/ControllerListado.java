@@ -17,16 +17,15 @@ public class ControllerListado {
 	@FXML
 	private Button ventaYflujo;
 	@FXML
-	public void cargarProveedores() {
+	public void cargarProveedores(ActionEvent event) {
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasPROVEEDORES.fxml")); 
-			Scene scene = new Scene (root2);
-			Stage primaryLayout = new Stage();
-			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasPROVEEDORES");
-			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Proveedores.getScene().getWindow();
-			nuevaEscena.close();
+                    Parent menu_parent = FXMLLoader.load(getClass().getResource
+                    ("../view/FXMLProveedores.fxml"));
+                    Scene menu_scene = new Scene(menu_parent);
+                    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    app_stage.hide();
+                    app_stage.setScene(menu_scene);
+                    app_stage.show();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

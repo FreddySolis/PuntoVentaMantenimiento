@@ -40,11 +40,11 @@ public class ControllerProductos implements Initializable {
     @FXML
     private Button Regresar;
     @FXML
-    private Button buttoneliminar;
+    private Button btnEdit;
     @FXML
-    private Button buttoneditar;
+    private Button btnDelete;
     @FXML
-    private Button btnAgregar;
+    private Button btnAdd;
     @FXML
     private TextField tFName;
     @FXML
@@ -90,6 +90,7 @@ public class ControllerProductos implements Initializable {
         tablaProducto.addListener(selectorTablaProductos);
         cBProvidersInit();
         cBTypeInit();
+        userType();
 
     }
 
@@ -198,7 +199,7 @@ public class ControllerProductos implements Initializable {
         }
 
     }
-    
+
     private void cBTypeInit() {
         String query = "Select tipo from tipos";
 
@@ -278,6 +279,19 @@ public class ControllerProductos implements Initializable {
         tablaPersonas.addListener(selectorTablaProductos);
 
         //INSERT INTO `productos` (`id`, `id_proveedor`, `id_tipo`, `producto`, `tamaño`, `precio`, `cantidad`) VALUES (NULL, '1', '1', 'test', 'grande', '50', '100');
+    }
+
+    public void userType() {
+        if (!PuntoVentas.Main.isAdmin) {
+
+            btnAdd.setDisable(true);
+            btnDelete.setDisable(true);
+            tFName.setDisable(true);
+            tFPrice.setDisable(true);
+            tFTamano.setDisable(true);
+            cBProveedor.setDisable(true);
+            cBType.setDisable(true);
+        }
     }
 
 }
