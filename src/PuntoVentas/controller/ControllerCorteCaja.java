@@ -6,6 +6,7 @@
 package PuntoVentas.controller;
 
 import PuntoVentas.model.ProductosModel;
+import PuntoVentas.model.ProductosVentas;
 import PuntoVentas.model.UsersModel;
 import PuntoVentas.model.VentasModel;
 import java.net.URL;
@@ -36,22 +37,22 @@ import javafx.scene.input.MouseEvent;
 public class ControllerCorteCaja implements Initializable{
     
     @FXML
-    private TableView<VentasModel> tbCaja;
+    private TableView<ProductosVentas> tbCaja;
 
     @FXML
-    private TableColumn <VentasModel, String> colFolio;
+    private TableColumn <ProductosVentas, String> colFolio;
 
     @FXML
-    private TableColumn <VentasModel, String> colProducto;
+    private TableColumn <ProductosVentas, String> colProducto;
 
     @FXML
-    private TableColumn <VentasModel, String> colCantidad;
+    private TableColumn <ProductosVentas, String> colCantidad;
 
     @FXML
-    private TableColumn <VentasModel, String> colIva;
+    private TableColumn <ProductosVentas, String> colIva;
 
     @FXML
-    private TableColumn <VentasModel, String> ColTotal;
+    private TableColumn <ProductosVentas, String> ColTotal;
 
     @FXML
     private Button Seleccionar;
@@ -66,7 +67,7 @@ public class ControllerCorteCaja implements Initializable{
     private ComboBox<UsersModel> cbListaUsuarios;
     
     @FXML
-    ObservableList<VentasModel> productList = FXCollections.observableArrayList();
+    ObservableList<ProductosVentas> productList = FXCollections.observableArrayList();
     
     @FXML
     ObservableList<UsersModel> usersList = FXCollections.observableArrayList();
@@ -90,8 +91,8 @@ public class ControllerCorteCaja implements Initializable{
     
     public void initialize(URL url, ResourceBundle rb) {
         cargarUsuarios();
-        colFolio.setCellValueFactory(new PropertyValueFactory<>("folio"));
-        colProducto.setCellValueFactory(new PropertyValueFactory<>("producto"));
+        colFolio.setCellValueFactory(new PropertyValueFactory<>("venta"));
+        colProducto.setCellValueFactory(new PropertyValueFactory<>("productos"));
         colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         colIva.setCellValueFactory(new PropertyValueFactory<>("iva"));
         ColTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -115,12 +116,12 @@ public class ControllerCorteCaja implements Initializable{
                 sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() 
                 +"' AND productos_ventas.id_usuarios =" + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() ;
                 productList = getProductoVentaList(); 
-                for(VentasModel aux:productList){
+                for(ProductosVentas aux:productList){
                     tbCaja.getItems().add(aux);
                 }
-                txtTotal.setText(Integer.toString(VentasModel.getIngresosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
-                txtVentas.setText(Integer.toString(VentasModel.getVentasUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
-                txtArtVen.setText(Integer.toString(VentasModel.getArticulosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtTotal.setText(Integer.toString(ProductosVentas.getIngresosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtVentas.setText(Integer.toString(ProductosVentas.getVentasUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtArtVen.setText(Integer.toString(ProductosVentas.getArticulosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
                 
                 //tbCaja.getItems().addAll(productList);
             }else if(tbTodos.isSelected()){
@@ -133,12 +134,12 @@ public class ControllerCorteCaja implements Initializable{
                 System.out.println("Fecha inicio: "+dtFechaI.getValue() +" Fecha Final: "+ dtFechaF.getValue() + " Usuario Seleccionado: "+tbTodos.isSelected());
                 sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() +"'"; 
                 productList = getProductoVentaList(); 
-                for(VentasModel aux:productList){
+                for(ProductosVentas aux:productList){
                     tbCaja.getItems().add(aux);
                 }
-                txtTotal.setText(Integer.toString(VentasModel.getIngresos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
-                txtVentas.setText(Integer.toString(VentasModel.getVentas(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
-                txtArtVen.setText(Integer.toString(VentasModel.getArticulos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtTotal.setText(Integer.toString(ProductosVentas.getIngresos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtVentas.setText(Integer.toString(ProductosVentas.getVentas(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtArtVen.setText(Integer.toString(ProductosVentas.getArticulos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
                 //tbCaja.getItems().addAll(productList);
 
             }else{
@@ -152,8 +153,8 @@ public class ControllerCorteCaja implements Initializable{
         
     }
     private String sSQL;
-    public ObservableList<VentasModel> getProductoVentaList() {
-        ObservableList<VentasModel> productList = FXCollections.observableArrayList();
+    public ObservableList<ProductosVentas> getProductoVentaList() {
+        ObservableList<ProductosVentas> productList = FXCollections.observableArrayList();
         Connection connection = ConnectorMySQL.getConnection();
         //System.out.println("Fecha inicio: "+dtFechaI.getValue() +" Fecha Final: "+ dtFechaF.getValue());
         //sSQL = "SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id WHERE fecha BETWEEN '"+ dtFechaI.getValue() +"' AND '"+ dtFechaF.getValue() +"'"; 
@@ -177,16 +178,18 @@ public class ControllerCorteCaja implements Initializable{
                 producto.setTamaño(rs.getString("productos.tamaño"));
                 System.out.println(producto);
                          
-                VentasModel product = new VentasModel();
+                VentasModel venta = new VentasModel(rs.getInt("ventas.id"), rs.getString("ventas.folio"));
+                
+                ProductosVentas product = new ProductosVentas();
                 product.setId(rs.getInt("productos_ventas.id"));
-                product.setProducto(producto);
-                product.setIdVenta(rs.getInt("productos_ventas.id"));
-                product.setIdUser(rs.getInt("productos_ventas.id_usuarios"));
+                product.setProductos(producto);
+                product.setVenta(venta);
+                product.setId_usuarios(rs.getInt("productos_ventas.id_usuarios"));
                 product.setCantidad(rs.getInt("productos_ventas.cantidad"));
                 product.setFecha(rs.getDate("productos_ventas.fecha"));
                 product.setTotal(rs.getInt("productos_ventas.total"));
                 product.setIva(rs.getInt("productos_ventas.iva"));
-                product.setFolio(rs.getInt("ventas.folio"));
+                
                 System.out.println(product);
                 productList.add(product);
             }

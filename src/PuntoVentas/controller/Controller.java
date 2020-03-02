@@ -53,8 +53,7 @@ public class Controller {
             if(password != null){
                 if(password.equals(txtpassword)){
                     usuario = UsersModel.find_user(conexion, txtusuario);  
-                    admin = usuario.split(";");
-                    if(admin[1].equals("1")){
+                    if(usuario.get_admin() == 1){
                         PuntoVentas.Main.isAdmin = true;
                         mostra_Menu();
                     }else{
