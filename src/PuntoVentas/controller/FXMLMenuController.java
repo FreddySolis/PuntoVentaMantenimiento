@@ -72,6 +72,12 @@ public class FXMLMenuController implements Initializable {
 
     @FXML
     private void inventarios(MouseEvent event) {
+         try {
+            createPage("FXMLProdutos");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+		}
     }
 
     @FXML

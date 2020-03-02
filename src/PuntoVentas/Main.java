@@ -21,7 +21,7 @@ public class Main extends Application {
 			
 			FXMLLoader loader = new FXMLLoader();
 
-			loader.setLocation(Main.class.getResource("../PuntoVentas/view/FXMLMenu.fxml"));
+			loader.setLocation(Main.class.getResource("../PuntoVentas/view/FXMLLogin2.fxml"));
 
 			AnchorPane root = (AnchorPane) loader.load();
 			
