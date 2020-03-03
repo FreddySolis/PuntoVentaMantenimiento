@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 
@@ -28,6 +29,7 @@ public class Main extends Application {
 			//Show the scene containing the root layout
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+                        primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

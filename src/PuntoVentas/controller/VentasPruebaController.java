@@ -7,7 +7,9 @@ package PuntoVentas.controller;
 
 import PuntoVentas.model.ConnectorMySQL;
 import PuntoVentas.model.ProductosModel;
+import PuntoVentas.model.ProductosVentas;
 import PuntoVentas.model.VentasModel;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Calendar;
@@ -30,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -50,13 +53,13 @@ public class VentasPruebaController implements Initializable {
     @FXML
     private TableColumn<ProductosModel, Integer> clnExistencias;
     @FXML
-    private TableView<VentasModel> tlbVentas;
+    private TableView<ProductosVentas> tlbVentas;
     @FXML
-    private TableColumn<VentasModel, String> clnVenta;
+    private TableColumn<ProductosVentas, String> clnVenta;
     @FXML
-    private TableColumn<VentasModel, Integer> clnPrecioVenta;
+    private TableColumn<ProductosVentas, Integer> clnPrecioVenta;
     @FXML
-    private TableColumn<VentasModel, Integer> clnCantidad;
+    private TableColumn<ProductosVentas, Integer> clnCantidad;
 
     @FXML
     private TextField txtCantidad;
@@ -69,7 +72,7 @@ public class VentasPruebaController implements Initializable {
 
     //Colecciones
     private ObservableList<ProductosModel> listaProductos;
-    private ObservableList<VentasModel> listaVentas;
+    private ObservableList<ProductosVentas> listaVentas;
 
     private ConnectorMySQL conexion;
     @FXML
@@ -77,6 +80,33 @@ public class VentasPruebaController implements Initializable {
 
     private ProductosModel producto;
     private VentasModel venta;
+    private ProductosVentas producto_venta;
+    
+    @FXML
+    private TextField txtCambio;
+
+    @FXML
+    private javafx.scene.text.Font x4;
+
+    @FXML
+    private TextField txtTotal;
+
+    @FXML
+    private TextField txtSubtotal;
+
+    @FXML
+    private TextField txtEfectivo;
+    
+    @FXML
+    private TextField txtFolio;
+    @FXML
+    private Color x5;
+    @FXML
+    private javafx.scene.text.Font x2;
+    @FXML
+    private javafx.scene.text.Font x1;
+    @FXML
+    private javafx.scene.text.Font x3;
 
     /**
      * Initializes the controller class.
@@ -98,6 +128,7 @@ public class VentasPruebaController implements Initializable {
         gestionarEventosProductos();
         gestionarEventosVentas();
         txtCantidad.setText("0");
+        venta = new VentasModel();
     }
 
     public void gestionarEventosProductos() {
@@ -111,10 +142,10 @@ public class VentasPruebaController implements Initializable {
     }
 
     public void gestionarEventosVentas() {
-        tlbVentas.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends VentasModel> observable, VentasModel oldValue, VentasModel valorSeleccionado) -> {
+        tlbVentas.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ProductosVentas> observable, ProductosVentas oldValue, ProductosVentas valorSeleccionado) -> {
             if (valorSeleccionado != null) {
-                lblProducto.setText("Por vender: " + valorSeleccionado.getProducto().getProducto());
-                venta = valorSeleccionado;
+                lblProducto.setText("Por vender: " + valorSeleccionado.getProductos().getProducto());
+                producto_venta = valorSeleccionado;
             }
         });
     }
@@ -130,7 +161,12 @@ public class VentasPruebaController implements Initializable {
                 alert.showAndWait();
             } else {
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-                listaVentas.add(new VentasModel(1, producto, date, producto.getPrecio(), Integer.parseInt(txtCantidad.getText()), Integer.parseInt(txtCantidad.getText()) * producto.getPrecio()));
+                venta.setFolio(txtFolio.getText());
+                float total = Integer.parseInt(txtCantidad.getText()) * producto.getPrecio();
+                float iva = total*0.16f;
+                total = total+iva;
+                listaVentas.add(new ProductosVentas(producto,venta,1,Integer.parseInt(txtCantidad.getText()),date,
+                        total,iva));
                 producto.setCantidad(producto.getCantidad() - Integer.parseInt(txtCantidad.getText()));
                 //listaProductos.remove(producto);
                 tblProductos.refresh();
@@ -145,7 +181,7 @@ public class VentasPruebaController implements Initializable {
     void quitarProducto(ActionEvent event) {
         try {
             listaVentas.remove(venta);
-            venta.getProducto().setCantidad(venta.getProducto().getCantidad() + venta.getCantidad());
+            producto_venta.getProductos().setCantidad(producto_venta.getProductos().getCantidad() + producto_venta.getCantidad());
             tblProductos.refresh();
             tlbVentas.refresh();
         } catch (Exception e) {
@@ -156,26 +192,35 @@ public class VentasPruebaController implements Initializable {
     @FXML
     void realizarVenta(ActionEvent event) {
         try {
+            boolean error = true;
             if (listaVentas.isEmpty()) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
                 alert.setHeaderText("No tienes productos seleccionado");
                 alert.setContentText("No puedes realizar una venta");
             } else {
-                int r = 0;
-                int i = 0;
-                for (VentasModel aux : listaVentas) {
-                    r = aux.guardarInformacion(ConnectorMySQL.getConnection());
-                    //System.out.println("Resultado venta: "+r);
-                    if (r == 1) {
-                        i = aux.getProducto().updateCantidad(ConnectorMySQL.getConnection());
-                        //System.out.println("Resultado producto: "+i);
+                int result = 0;
+                for (ProductosVentas aux : listaVentas) {
+                    venta.setFolio(txtFolio.getText());
+                    
+                    result = venta.guardarInformacion(ConnectorMySQL.getConnection());
+                    
+                    if (result == 1){
+                        venta = venta.buscarVenta(ConnectorMySQL.getConnection());
+                        if (venta != null){
+                            result = aux.guardarInformacion(ConnectorMySQL.getConnection());
+                            if(result == 1){
+                                result = aux.getProductos().updateCantidad(ConnectorMySQL.getConnection());
+                                if(result == 1)
+                                    error = false;
+                            }
+                        }
                     }
-                    if (r != 1 || i != 1) {
-                        break;
-                    }
+                    
+                   
+                 
                 }
-                if (r == 1) {
+                if (!error) {
                     Alert mensaje = new Alert(AlertType.INFORMATION);
                     mensaje.setTitle("Venta Satisfactoria");
                     mensaje.setContentText("La venta se ha realizado exitosamente");
@@ -201,7 +246,6 @@ public class VentasPruebaController implements Initializable {
         }
     }
 
-    @FXML
     void regresarHome(MouseEvent event) {
         try {
             Parent menu_parent = FXMLLoader.load(getClass().getResource("../view/FXMLPuntoVentasLISTADO.fxml"));

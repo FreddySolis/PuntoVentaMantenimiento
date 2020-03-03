@@ -90,8 +90,4 @@ public class VentasModel {
         }
         return ventamodel;
     }
-    
-    
-    
-    
 }

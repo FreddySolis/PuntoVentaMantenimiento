@@ -48,6 +48,18 @@ public class ProductosModel {
         this.precio = precio;
         this.cantidad = cantidad;
     }
+    
+     public ProductosModel(int id, int id_proveedor, int id_tipo,String producto,String tamaño, float precio, int cantidad,String proveedor) {
+        this.id = id;
+        this.id_proveedor = id_proveedor;
+        this.proveedor = proveedor;
+        this.id_tipo = id_tipo;
+        this.tipo = tipo;
+        this.producto = producto;
+        this.tamaño = tamaño;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
 
     public int getId() {
         return id;
@@ -130,8 +142,8 @@ public class ProductosModel {
             ResultSet rs = st.executeQuery(sSQL);
             while (rs.next()) {
                 lista.add(new ProductosModel(rs.getInt("id"), rs.getInt("id_proveedor"),
-                        rs.getInt("id_tipo"), rs.getString("producto"), rs.getString("tamaño"), rs.getFloat("precio"),
-                        rs.getInt("cantidad")));
+                        rs.getInt("id_tipo"),rs.getString("producto"), rs.getString("tamaño"), rs.getFloat("precio"),
+                        rs.getInt("cantidad"),""));
 
             }
         } catch (SQLException ex) {

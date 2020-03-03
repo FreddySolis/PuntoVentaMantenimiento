@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #f9a825;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.FXMLMenuController">
+   <children>
+      <AnchorPane prefHeight="37.0" prefWidth="800.0" style="-fx-background-color: #c17900;" AnchorPane.bottomAnchor="470.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" layoutX="15.0" layoutY="25.0" size="2.4em">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </FontAwesomeIconView>
+            <Label layoutX="340.0" layoutY="1.0" prefHeight="30.0" prefWidth="121.0" style="-fx-text-fill: white;" text="Papeleria Suchiapa" textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="3.0" top="3.0" />
+               </padding>
+            </Label>
+            <HBox layoutX="708.0" layoutY="8.0" prefHeight="17.0" prefWidth="89.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="MINUS" onMouseClicked="#min" size="1.2em" text="">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CIRCLE" onMouseClicked="#max" size="1.2em">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" onMouseClicked="#close" size="1.2em">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <StackPane layoutY="98.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <AnchorPane fx:id="apContenedor" prefHeight="400.0" prefWidth="800.0" />
+         </children>
+      </StackPane>
+      <HBox alignment="CENTER" layoutY="30.0" prefHeight="60.0" prefWidth="800.0">
+         <children>
+            <VBox alignment="CENTER" onMouseClicked="#inventarios" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="ARCHIVE" size="2.5em" wrappingWidth="30.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+                  <Label text="Inventarios">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#ventas" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="INDUSTRY" size="2.5em" text="" wrappingWidth="30.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+                  <Label text="Ventas">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#proveedores" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="USERS" size="2.5em" wrappingWidth="30.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+                  <Label text="Proveedores">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#reportes" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="COLUMNS" size="2.5em" wrappingWidth="30.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+                  <Label text="Reportes">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#logout" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="UNDO" size="2.5em" wrappingWidth="30.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+                  <Label prefHeight="56.0" prefWidth="53.0" text="Logout" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="3.0" right="3.0" top="3.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>
