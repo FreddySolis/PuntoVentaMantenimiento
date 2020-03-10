@@ -142,9 +142,9 @@ public class ProductosVentas {
         return String.valueOf(id);
     }
     
-    public static int getIngresos(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF){
+    public static float getIngresos(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF){
         String sSQL = "SELECT SUM(total) totalV  FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"'"; 
-        int suma = -1;
+        float suma = -1;
         //Statement st;
         //ResultSet rs;
         
@@ -153,7 +153,7 @@ public class ProductosVentas {
             ResultSet rs = stt.executeQuery(sSQL);        
             ProductosModel producto;
             while (rs.next()) {                    
-               suma = rs.getInt("totalV");
+               suma = rs.getFloat("totalV");
             }
             return suma;
         } catch (Exception e) {
@@ -202,9 +202,9 @@ public class ProductosVentas {
         return suma; 
     }
     
-    public static int getIngresosUser(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF, int user){
+    public static float getIngresosUser(ConnectorMySQL cn, LocalDate dtFechaI, LocalDate dtFechaF, int user){
         String sSQL = "SELECT SUM(total) totalV  FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '"+ dtFechaI +"' AND '"+ dtFechaF +"' AND productos_ventas.id_usuarios =" + user ; 
-        int suma = -1;
+        float suma = -1;
         //Statement st;
         //ResultSet rs;
         
@@ -213,7 +213,7 @@ public class ProductosVentas {
             ResultSet rs = stt.executeQuery(sSQL);        
             ProductosModel producto;
             while (rs.next()) {                    
-               suma = rs.getInt("totalV");
+               suma = rs.getFloat("totalV");
             }
             return suma;
         } catch (Exception e) {

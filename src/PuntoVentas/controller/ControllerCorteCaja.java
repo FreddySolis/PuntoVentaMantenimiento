@@ -106,6 +106,7 @@ public class ControllerCorteCaja implements Initializable{
         if(dtFechaI.getValue() != null && dtFechaF.getValue() != null){
             
             if(cbListaUsuarios.getSelectionModel().getSelectedItem()!=null && cbListaUsuarios.isDisable() == false){
+                lbError.setVisible(false);
                 if(tbCaja != null){
                     tbCaja.getItems().clear();
                     txtTotal.setText("n/o");
@@ -119,12 +120,13 @@ public class ControllerCorteCaja implements Initializable{
                 for(ProductosVentas aux:productList){
                     tbCaja.getItems().add(aux);
                 }
-                txtTotal.setText(Integer.toString(ProductosVentas.getIngresosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
+                txtTotal.setText(Float.toString(ProductosVentas.getIngresosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
                 txtVentas.setText(Integer.toString(ProductosVentas.getVentasUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
                 txtArtVen.setText(Integer.toString(ProductosVentas.getArticulosUser(conexion, dtFechaI.getValue(), dtFechaF.getValue(), cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user())));
                 
                 //tbCaja.getItems().addAll(productList);
             }else if(tbTodos.isSelected()){
+                lbError.setVisible(false);
                 if(tbCaja != null){
                     tbCaja.getItems().clear();
                     txtTotal.setText("n/o");
@@ -137,17 +139,19 @@ public class ControllerCorteCaja implements Initializable{
                 for(ProductosVentas aux:productList){
                     tbCaja.getItems().add(aux);
                 }
-                txtTotal.setText(Integer.toString(ProductosVentas.getIngresos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
+                txtTotal.setText(Float.toString(ProductosVentas.getIngresos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
                 txtVentas.setText(Integer.toString(ProductosVentas.getVentas(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
                 txtArtVen.setText(Integer.toString(ProductosVentas.getArticulos(conexion, dtFechaI.getValue(), dtFechaF.getValue())));
                 //tbCaja.getItems().addAll(productList);
 
             }else{
                 lbError.setText("Usuario o Usuarios no establecios");
+                lbError.setVisible(true);
             }
                       
         }else{
             lbError.setText("Fechas no establecidas");
+            lbError.setVisible(true);
         }
        
         
@@ -174,7 +178,7 @@ public class ControllerCorteCaja implements Initializable{
                 producto.setId_tipo(rs.getInt("productos.id_tipo"));
                 producto.setId_proveedor(rs.getInt("productos.id_proveedor"));
                 producto.setProveedor(rs.getString("proveedores.proveedor"));
-                producto.setPrecio(rs.getInt("productos.precio"));
+                producto.setPrecio(rs.getFloat("productos.precio"));
                 producto.setTamaño(rs.getString("productos.tamaño"));
                 System.out.println(producto);
                          
@@ -187,8 +191,8 @@ public class ControllerCorteCaja implements Initializable{
                 product.setId_usuarios(rs.getInt("productos_ventas.id_usuarios"));
                 product.setCantidad(rs.getInt("productos_ventas.cantidad"));
                 product.setFecha(rs.getDate("productos_ventas.fecha"));
-                product.setTotal(rs.getInt("productos_ventas.total"));
-                product.setIva(rs.getInt("productos_ventas.iva"));
+                product.setTotal(rs.getFloat("productos_ventas.total"));
+                product.setIva(rs.getFloat("productos_ventas.iva"));
                 
                 System.out.println(product);
                 productList.add(product);

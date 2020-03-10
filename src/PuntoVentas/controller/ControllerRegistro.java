@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -87,12 +89,18 @@ public class ControllerRegistro {
 
                                 if(new_user.guardar_informacion_usuario(conexion) != 0){
                                     lbError.setVisible(false);
+                                    limpiar();
                                     System.out.println("Creacion exitosa");
+                                    Alert alert = new Alert(AlertType.INFORMATION);
+                                    alert.setTitle("Registro");
+                                    alert.setHeaderText("Creacion Exitosa");  
+
+                                    alert.showAndWait();
                                 }else{
-                                    System.out.println("Guardar usuario error");
+                                    System.out.println("Conexion guardado de Informacion fallida");
                                 }
                             }else{
-                                System.out.println("guardar info error");
+                                System.out.println("Conexion guardado de usuario fallida");
                         }      
 
                         }else{
@@ -193,5 +201,16 @@ public class ControllerRegistro {
             } catch (Exception e) {
                     e.printStackTrace();
             }
+    }
+    
+    public void limpiar(){
+        CAJAnombre.setText("");
+        CAJAapellidoP.setText("");
+        CAJAcorreo.setText("");
+        CAJAcontra.setText("");
+        CAJAcontra2.setText("");
+        CAJAtelefono.setText("");
+        rbPermiso.setSelected(false);
+        CAJAusuario.setText("");
     }
 }
