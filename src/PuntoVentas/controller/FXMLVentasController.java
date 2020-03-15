@@ -260,7 +260,7 @@ public class FXMLVentasController implements Initializable {
                 
                 total = total + iva;
                 
-                listaVentas.add(new ProductosVentas(producto, venta, 1, Integer.parseInt(txtCantidad.getText()), date,
+                listaVentas.add(new ProductosVentas(producto, venta, Controller.user.get_id_user(), Integer.parseInt(txtCantidad.getText()), date,
                         total, iva));
                 producto.setCantidad(producto.getCantidad() - Integer.parseInt(txtCantidad.getText()));
                 //listaProductos.remove(producto);

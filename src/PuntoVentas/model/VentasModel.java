@@ -82,8 +82,8 @@ public class VentasModel {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
             while (rs.next()) {
-               ventamodel = new VentasModel(rs.getInt("id"),rs.getString("folio"));
-
+                //ventamodel = new VentasModel(rs.getInt("id"),rs.getString("folio"));
+                System.out.println(rs.getString("folio"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductosModel.class.getName()).log(Level.SEVERE, null, ex);
