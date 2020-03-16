@@ -71,9 +71,8 @@ public class FXMLVentasController implements Initializable {
     private TextField txtIva;
     @FXML
     private TextField txtBuscar;
-
- 
-
+    @FXML
+    private Label lblEmpleado;
 
     @FXML
     private TableView<ProductosModel> tblProductos;
@@ -97,11 +96,12 @@ public class FXMLVentasController implements Initializable {
     //Colecciones
     private ObservableList<ProductosModel> listaProductos;
     private ObservableList<ProductosVentas> listaVentas;
+    private ObservableList<ProductosModel> filters;
 
     private ConnectorMySQL conexion;
     @FXML
 
-    private ProductosModel producto;
+    private ProductosModel producto = null;
     private VentasModel venta;
     private ProductosVentas producto_venta;
 
@@ -128,10 +128,14 @@ public class FXMLVentasController implements Initializable {
         gestionarEventosProductos();
         gestionarEventosVentas();
         txtCantidad.setText("0");
-        txtFolio.setText(null);
         venta = new VentasModel();
         total = 0;
         iva = 0;
+        lblEmpleado.setText(Controller.user.get_nombre());
+        String folio1 = VentasModel.buscarUltimaVenta(ConnectorMySQL.getConnection()).getFolio();
+        int folio =  Integer.parseInt(folio1)+1;
+        txtFolio.setText(folio+"");
+        venta.setFolio(folio+"");
     }
 
     public void gestionarEventosProductos() {
@@ -140,6 +144,8 @@ public class FXMLVentasController implements Initializable {
                 lblProducto.setText(valorSeleccionado.getProducto());
                 txtCantidad.setText("1");
                 producto = valorSeleccionado;
+            }else{
+                producto = null;
             }
         });
     }
@@ -156,7 +162,7 @@ public class FXMLVentasController implements Initializable {
     @FXML
     private void quitarProducto(ActionEvent event) {
         try {
-            listaVentas.remove(producto_venta);            
+            listaVentas.remove(producto_venta);
             producto_venta.getProductos().setCantidad(producto_venta.getProductos().getCantidad() + producto_venta.getCantidad());
             tblProductos.refresh();
             tlbVentas.refresh();
@@ -165,12 +171,52 @@ public class FXMLVentasController implements Initializable {
             System.out.print("Error: " + e);
         }
     }
-    
+
     @FXML
     void buscar(ActionEvent event) {
-        
-        listaProductos.stream().filter(t -> t.getProducto().equals(txtBuscar.getText()));
-        
+
+        if (txtBuscar.getText().equals("")) {
+            System.out.println("Entra al listado");
+            for (ProductosModel aux : listaProductos) {
+                System.out.println("listado: " + aux.getProducto());
+            }
+            System.out.println("---------------------");
+
+            tblProductos.setItems(listaProductos);
+            tblProductos.refresh();
+        } else {
+            filters = FXCollections.observableArrayList();
+            char[] letras = txtBuscar.getText().toCharArray();
+            for (ProductosModel aux : listaProductos) {
+                char[] name_product = aux.getProducto().toCharArray();
+                int coincidencias = 0;
+
+                for (int i = 0; i < letras.length; i++) {
+                    for (int j = 0; j < name_product.length; j++) {
+                        if (letras[i] == name_product[j]) {
+                            if (coincidencias == 0) {
+                                coincidencias++;
+                            } else {
+                                if (i == j) {
+                                    coincidencias++;
+                                }
+                            }
+                            j = name_product.length;
+                        }
+                    }
+
+                    if (coincidencias == letras.length) {
+                        filters.add(aux);
+                    }
+
+                }
+
+            }
+
+            tblProductos.setItems(filters);
+            tblProductos.refresh();
+
+        }
     }
 
     @FXML
@@ -185,15 +231,10 @@ public class FXMLVentasController implements Initializable {
             } else {
                 int result = 0;
                 for (ProductosVentas aux : listaVentas) {
-                    venta.setFolio(txtFolio.getText());
-
-                    if (txtFolio.getText() != "" && txtFolio.getText() != " "
-                            && txtFolio.getText() != null && venta.buscarVenta(ConnectorMySQL.getConnection()) == null) {
-
                         result = venta.guardarInformacion(ConnectorMySQL.getConnection());
-
                         if (result == 1) {
                             venta = venta.buscarVenta(ConnectorMySQL.getConnection());
+                            
                             if (venta != null) {
                                 aux.setVenta(venta);
                                 result = aux.guardarInformacion(ConnectorMySQL.getConnection());
@@ -225,15 +266,9 @@ public class FXMLVentasController implements Initializable {
 
                             alert.showAndWait();
                         }
-
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Ha ocurrido un error");
-                        alert.setHeaderText("Venta incorrecta");
-                        alert.setContentText("No se ha podido realizar la venta, folio vacio o repetido");
-                        alert.showAndWait();
-                    }
-
+                    String folio1 = VentasModel.buscarUltimaVenta(ConnectorMySQL.getConnection()).getFolio();
+                    int folio =  Integer.parseInt(folio1)+1;
+                    txtFolio.setText(folio+"");
                 }
 
             }
@@ -251,38 +286,41 @@ public class FXMLVentasController implements Initializable {
                 alert.setHeaderText("No hay suficientes producto");
                 alert.setContentText("No puedes agregar mas productos");
                 alert.showAndWait();
-            } else {
+            } else if(producto == null){
+             Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("No seleccionaste un producto");
+                alert.setContentText("No hay productos, por favor seleccionar uno");
+            }else {
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-                venta.setFolio(txtFolio.getText());
+                //venta.setFolio(txtFolio.getText());
                 float total = Integer.parseInt(txtCantidad.getText()) * producto.getPrecio();
                 float iva = total * 0.16f;
 
-                
                 total = total + iva;
-                
+
                 listaVentas.add(new ProductosVentas(producto, venta, Controller.user.get_id_user(), Integer.parseInt(txtCantidad.getText()), date,
                         total, iva));
                 producto.setCantidad(producto.getCantidad() - Integer.parseInt(txtCantidad.getText()));
-                //listaProductos.remove(producto);
                 tblProductos.refresh();
-                txtFolio.setText(null);
+                
                 calcularPrecios();
             }
         } catch (Exception e) {
             System.out.print("Error: " + e);
         }
     }
-    
-    public void calcularPrecios(){
+
+    public void calcularPrecios() {
         this.total = 0;
         this.iva = 0;
-        for(ProductosVentas aux: listaVentas){
+        for (ProductosVentas aux : listaVentas) {
             this.total += aux.getTotal();
             this.iva += aux.getIva();
         }
-        
-        txtTotal.setText(""+total);
-        txtIva.setText(""+iva);
+
+        txtTotal.setText("" + total);
+        txtIva.setText("" + iva);
     }
 
 }
