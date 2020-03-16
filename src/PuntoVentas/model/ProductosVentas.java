@@ -131,7 +131,7 @@ public class ProductosVentas {
             return pst.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Error: " + ex);
+          //  System.err.println("Error: " + ex);
             return 0;
 
         }

@@ -86,8 +86,8 @@
         <Font size="18.0" fx:id="x4" />
       </font>
     </Label>
-    <Label font="$x4" layoutX="74.0" layoutY="31.0" text="Nombre empleado" />
-      <TextField fx:id="txtFolio" layoutX="414.0" layoutY="60.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
+    <Label fx:id="lblEmpleado" font="$x4" layoutX="74.0" layoutY="31.0" text="Nombre empleado" />
+      <TextField fx:id="txtFolio" disable="true" layoutX="414.0" layoutY="60.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
       <TextField fx:id="txtTotal" disable="true" layoutX="413.0" layoutY="116.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
       <TextField fx:id="txtIva" disable="true" layoutX="413.0" layoutY="148.0" prefHeight="26.999900000002526" prefWidth="96.0" style="-fx-background-color: #ffd95a; -fx-border-color: black; -fx-border-width: 0px 0px 2px 0px;" />
   </children>
