@@ -66,7 +66,6 @@ public class FXMLMenuAdminController implements Initializable {
     private void cajeros(MouseEvent event) {
         try {
             createPage("FXMLPuntoVentasREGISTRO");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,7 +85,6 @@ public class FXMLMenuAdminController implements Initializable {
     private void inventarios(MouseEvent event) {
         try {
             createPage("FXMLProductos");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,7 +94,6 @@ public class FXMLMenuAdminController implements Initializable {
     private void ventas(MouseEvent event) {
         try {
             createPage("FXMLVentas");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,7 +103,6 @@ public class FXMLMenuAdminController implements Initializable {
     private void proveedores(MouseEvent event) {
         try {
             createPage("FXMLProveedores");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +110,11 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void reportes(MouseEvent event) {
+        try {
+            createPage("FXMLPuntoVentasCorteCaja");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

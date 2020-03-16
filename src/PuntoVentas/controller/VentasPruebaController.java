@@ -60,6 +60,8 @@ public class VentasPruebaController implements Initializable {
     private TableColumn<ProductosVentas, Integer> clnPrecioVenta;
     @FXML
     private TableColumn<ProductosVentas, Integer> clnCantidad;
+    @FXML
+    private TextField txtBuscar;
 
     @FXML
     private TextField txtCantidad;
@@ -73,6 +75,7 @@ public class VentasPruebaController implements Initializable {
     //Colecciones
     private ObservableList<ProductosModel> listaProductos;
     private ObservableList<ProductosVentas> listaVentas;
+    private ObservableList<ProductosModel> filters;
 
     private ConnectorMySQL conexion;
     @FXML
@@ -81,7 +84,7 @@ public class VentasPruebaController implements Initializable {
     private ProductosModel producto;
     private VentasModel venta;
     private ProductosVentas producto_venta;
-    
+
     @FXML
     private TextField txtCambio;
 
@@ -96,7 +99,7 @@ public class VentasPruebaController implements Initializable {
 
     @FXML
     private TextField txtEfectivo;
-    
+
     @FXML
     private TextField txtFolio;
     @FXML
@@ -163,10 +166,10 @@ public class VentasPruebaController implements Initializable {
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                 venta.setFolio(txtFolio.getText());
                 float total = Integer.parseInt(txtCantidad.getText()) * producto.getPrecio();
-                float iva = total*0.16f;
-                total = total+iva;
-                listaVentas.add(new ProductosVentas(producto,venta,1,Integer.parseInt(txtCantidad.getText()),date,
-                        total,iva));
+                float iva = total * 0.16f;
+                total = total + iva;
+                listaVentas.add(new ProductosVentas(producto, venta, 1, Integer.parseInt(txtCantidad.getText()), date,
+                        total, iva));
                 producto.setCantidad(producto.getCantidad() - Integer.parseInt(txtCantidad.getText()));
                 //listaProductos.remove(producto);
                 tblProductos.refresh();
@@ -202,23 +205,22 @@ public class VentasPruebaController implements Initializable {
                 int result = 0;
                 for (ProductosVentas aux : listaVentas) {
                     venta.setFolio(txtFolio.getText());
-                    
+
                     result = venta.guardarInformacion(ConnectorMySQL.getConnection());
-                    
-                    if (result == 1){
+
+                    if (result == 1) {
                         venta = venta.buscarVenta(ConnectorMySQL.getConnection());
-                        if (venta != null){
+                        if (venta != null) {
                             result = aux.guardarInformacion(ConnectorMySQL.getConnection());
-                            if(result == 1){
+                            if (result == 1) {
                                 result = aux.getProductos().updateCantidad(ConnectorMySQL.getConnection());
-                                if(result == 1)
+                                if (result == 1) {
                                     error = false;
+                                }
                             }
                         }
                     }
-                    
-                   
-                 
+
                 }
                 if (!error) {
                     Alert mensaje = new Alert(AlertType.INFORMATION);
@@ -246,17 +248,46 @@ public class VentasPruebaController implements Initializable {
         }
     }
 
-    void regresarHome(MouseEvent event) {
-        try {
-            Parent menu_parent = FXMLLoader.load(getClass().getResource("../view/FXMLPuntoVentasLISTADO.fxml"));
-            Scene menu_scene = new Scene(menu_parent);
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            app_stage.hide();
-            app_stage.setScene(menu_scene);
-            app_stage.show();
+    @FXML
+    void buscar(ActionEvent event) {
+        System.out.println("Entra al metodo");
+        if (txtBuscar.getText().equals("")) {
+            //System.out.println("Entra al listado");
+            tblProductos.getItems().clear();
+            tblProductos.setItems(listaProductos);
+            tblProductos.refresh();
+        } else {
+            //System.out.println("Entra al filtro");
+            filters = FXCollections.observableArrayList();
+            char[] letras = txtBuscar.getText().toCharArray();
+            for (ProductosModel aux : listaProductos) {
+                char[] name_product = aux.getProducto().toCharArray();
+                int coincidencias = 0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                for (int i = 0; i < letras.length; i++) {
+                    for (int j = 0; j < name_product.length; j++) {
+                        if (letras[i] == name_product[j]) {
+                            coincidencias++;
+                        }
+                    }
+                }
+
+                if (coincidencias == letras.length) {
+                    filters.add(aux);
+                }
+            }
+
+            /*for (ProductosModel aux : filters) {
+                System.out.println(aux.getProducto());
+                System.out.println("---------------------");
+            
+            
+            }*/
+            
+            tblProductos.getItems().clear();
+            tblProductos.setItems(filters);
+            tblProductos.refresh();
+
         }
     }
 

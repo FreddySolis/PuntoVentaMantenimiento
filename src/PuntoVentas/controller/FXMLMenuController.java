@@ -43,7 +43,6 @@ public class FXMLMenuController implements Initializable {
         // TODO
     }
 
-
     @FXML
     private void min(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -63,8 +62,6 @@ public class FXMLMenuController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
-
-  
 
     @FXML
     private void inventarios(MouseEvent event) {
@@ -98,6 +95,12 @@ public class FXMLMenuController implements Initializable {
 
     @FXML
     private void reportes(MouseEvent event) {
+        try {
+            createPage("FXMLPuntoVentasCorteCaja");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
