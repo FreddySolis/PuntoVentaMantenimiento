@@ -176,12 +176,6 @@ public class FXMLVentasController implements Initializable {
     void buscar(ActionEvent event) {
 
         if (txtBuscar.getText().equals("")) {
-            System.out.println("Entra al listado");
-            for (ProductosModel aux : listaProductos) {
-                System.out.println("listado: " + aux.getProducto());
-            }
-            System.out.println("---------------------");
-
             tblProductos.setItems(listaProductos);
             tblProductos.refresh();
         } else {

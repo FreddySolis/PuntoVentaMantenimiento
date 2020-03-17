@@ -207,13 +207,11 @@ public class UsersModel {
                 usuari.set_password(rs.getString("password"));
                 usuari.set_admin(rs.getInt("admin"));
                 usuari.set_id_user(rs.getInt("usuarios.id"));
-<<<<<<< Updated upstream
                 usuari.set_id_info(rs.getInt("informacion_usuario.id"));
                 System.out.println("Usuario encontrado: " + usuari.get_nombre());   
-=======
                 usuari.set_id_info(rs.getInt("informacion_usuario.id_usuarios"));
                 System.out.println("Usuario encontrado: " + usuari.get_usuario());   
->>>>>>> Stashed changes
+
                 //user = rs.getString("nombre_usuario");
                 //user = user +";"+rs.getString("admin");
             }                
