@@ -253,9 +253,16 @@ public class ControllerProductos implements Initializable {
     }
 
     @FXML
-    public void cargarListado(ActionEvent event) {
+    public void cargarListado() {
         try {
-            Parent menu_parent;
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
+            Scene scene = new Scene(root2);
+            Stage primaryLayout = new Stage();
+            primaryLayout.setScene(scene);
+            primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
+            primaryLayout.show();
+            Stage nuevaEscena = (Stage) this.Regresar.getScene().getWindow();
+            nuevaEscena.close();
 
             menu_parent = FXMLLoader.load(getClass().getResource("../view/FXMLPuntoVentasLISTADO.fxml"));
             Scene menu_scene = new Scene(menu_parent);

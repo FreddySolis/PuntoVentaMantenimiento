@@ -1,6 +1,9 @@
 package PuntoVentas.controller;
 
+<<<<<<< Updated upstream
 import java.awt.event.MouseEvent;
+=======
+>>>>>>> Stashed changes
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +22,7 @@ public class ControllerListado {
 	@FXML
 	public void cargarProveedores(ActionEvent event) {
 		try {
+<<<<<<< Updated upstream
                     Parent menu_parent = FXMLLoader.load(getClass().getResource
                     ("../view/FXMLProveedores.fxml"));
                     Scene menu_scene = new Scene(menu_parent);
@@ -26,6 +30,16 @@ public class ControllerListado {
                     app_stage.hide();
                     app_stage.setScene(menu_scene);
                     app_stage.show();
+=======
+			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasPROVEEDORES.fxml")); 
+			Scene scene = new Scene (root2);
+			Stage primaryLayout = new Stage();
+			primaryLayout.setScene(scene);
+			primaryLayout.setTitle("FXMLPuntoVentasPROVEEDORES");
+			primaryLayout.show();
+			Stage nuevaEscena =(Stage) this.Proveedores.getScene().getWindow();
+			nuevaEscena.close();
+>>>>>>> Stashed changes
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,7 +51,11 @@ public class ControllerListado {
 	public void cargarInventario(ActionEvent event) {
 		try {
                     Parent menu_parent = FXMLLoader.load(getClass().getResource
+<<<<<<< Updated upstream
                     ("../view/FXMLProductos.fxml"));
+=======
+                    ("../view/FXMLPuntoVentasPRODUCTOS.fxml"));
+>>>>>>> Stashed changes
                     Scene menu_scene = new Scene(menu_parent);
                     Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     app_stage.hide();
