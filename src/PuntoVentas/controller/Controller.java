@@ -39,6 +39,8 @@ public class Controller {
     private TextField CAJAusuario;
     @FXML
     private PasswordField CAJAcontrasenia;
+    
+    public static UsersModel user;
 
     @FXML
     public void cargarListado(ActionEvent event) {
@@ -57,6 +59,7 @@ public class Controller {
             if(password != null){
                 if(password.equals(txtpassword)){
                     usuario = UsersModel.find_user(conexion, txtusuario);  
+                    user = usuario;
                     if(usuario.get_admin() == 1){
                         PuntoVentas.Main.isAdmin = true;
                         mostra_Menu("FXMLMenuAdmin.fxml");
