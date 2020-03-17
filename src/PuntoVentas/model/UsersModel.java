@@ -209,8 +209,6 @@ public class UsersModel {
                 usuari.set_id_user(rs.getInt("usuarios.id"));
                 usuari.set_id_info(rs.getInt("informacion_usuario.id"));
                 System.out.println("Usuario encontrado: " + usuari.get_nombre());   
-                usuari.set_id_info(rs.getInt("informacion_usuario.id_usuarios"));
-                System.out.println("Usuario encontrado: " + usuari.get_usuario());   
 
                 //user = rs.getString("nombre_usuario");
                 //user = user +";"+rs.getString("admin");
