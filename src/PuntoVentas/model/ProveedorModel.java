@@ -5,6 +5,10 @@
  */
 package PuntoVentas.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author JulioCaballero
@@ -21,8 +25,9 @@ public class ProveedorModel {
         this.telefono = telefono;
         this.correo = correo;
     }
-    
-    
+    public ProveedorModel() {
+        
+    }    
 
     public int getId() {
         return id;
@@ -56,6 +61,31 @@ public class ProveedorModel {
         this.correo = correo;
     }
     
+    public static ProveedorModel all_proovedor(ConnectorMySQL cn){
+        ProveedorModel proovedor = null;
+        String SQL = "SELECT * FROM `proveedores`";
+        try {                          
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(SQL);                
+            while(rs.next()){
+                proovedor = new ProveedorModel();
+                proovedor.setId(rs.getInt("id"));
+                proovedor.setProveedor(rs.getString("proovedor"));
+                proovedor.setTelefono(rs.getString("telefono"));
+                proovedor.setCorreo(rs.getString("correo"));
+                
+                System.out.println("Usuario encontrado: " + proovedor.getProveedor());   
+
+                //user = rs.getString("nombre_usuario");
+                //user = user +";"+rs.getString("admin");
+            }                
+            //System.out.println("Usuario encontrado: " + usuari.get_nombre());   
+            return proovedor;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return proovedor = null;
+        }
+    }
     
     
 }

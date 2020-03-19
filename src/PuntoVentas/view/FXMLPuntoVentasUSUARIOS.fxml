@@ -1,38 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerUsuarios">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #F9A825;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.ControllerUsuarios">
    <children>
-      <TableView fx:id="tablaUsuario" layoutX="14.0" layoutY="88.0" prefHeight="280.0" prefWidth="598.0">
-        <columns>
-          <TableColumn fx:id="ID" prefWidth="62.0" text="ID" />
-          <TableColumn fx:id="apellidoPaterno" prefWidth="123.0" text="Nombre(s)" />
-            <TableColumn fx:id="Nombres" prefWidth="150.0" text="Apellido Paterno" />
-            <TableColumn fx:id="tipoUsuario" prefWidth="105.0" text="Tipo de usuario" />
-            <TableColumn fx:id="correos" prefWidth="158.0" text="Correo" />
-            <TableColumn prefWidth="51.0" text="ID" />
-        </columns>
-      </TableView>
-      <Label layoutX="164.0" layoutY="25.0" prefHeight="25.0" prefWidth="321.0" text="LISTA DE USUARIOS" textFill="#ff5757">
+      <Label layoutX="231.0" layoutY="7.0" text="Administracion de Usuarios">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="Regresar" layoutX="441.0" layoutY="472.0" mnemonicParsing="false" onAction="#cargarListado" style="-fx-background-color: #ff5757;" text="Regresar" textFill="WHITE" />
-      <Button fx:id="Salir" layoutX="523.0" layoutY="472.0" mnemonicParsing="false" onAction="#regresarLogin" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #ff5757;" text="Salir" textFill="WHITE" />
-      <TextField fx:id="CAJAid" editable="false" layoutX="14.0" layoutY="397.0" prefHeight="25.0" prefWidth="45.0" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="CAJAapellidoPater" layoutX="66.0" layoutY="397.0" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="CAJAnombres" layoutX="202.0" layoutY="397.0" prefHeight="25.0" prefWidth="112.0" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="CAJAtipoUsuario" layoutX="335.0" layoutY="397.0" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #76D7C4;" />
-      <TextField fx:id="CAJAcorreo" layoutX="448.0" layoutY="397.0" prefHeight="25.0" prefWidth="166.0" style="-fx-background-color: #76D7C4;" />
-      <Button fx:id="editar" layoutX="366.0" layoutY="472.0" mnemonicParsing="false" onAction="#modificar" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #ff5757;" text="Editar" textFill="WHITE" />
-      <Button fx:id="eliminar" layoutX="293.0" layoutY="472.0" mnemonicParsing="false" onAction="#eliminar" style="-fx-background-color: #ff5757;" text="Eliminar" textFill="WHITE" />
+      <Button fx:id="btn_Eliminar" layoutX="627.0" layoutY="355.0" mnemonicParsing="false" onAction="#Eliminar" prefHeight="31.0" prefWidth="152.0" style="-fx-background-color: #C17900; -fx-background-radius: 50;" text="Eliminar Usuario" textFill="WHITE">
+         <effect>
+            <DropShadow offsetX="1.0" offsetY="2.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="lbError" layoutX="639.0" layoutY="12.0" text="Errores" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_actualizar" layoutX="314.0" layoutY="355.0" mnemonicParsing="false" onAction="#cargarActualizar" prefHeight="31.0" prefWidth="173.0" style="-fx-background-color: #CABF45; -fx-background-radius: 50;" text="Actualizar Usuario">
+         <effect>
+            <DropShadow offsetX="1.0" offsetY="2.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_Crear" layoutX="19.0" layoutY="355.0" mnemonicParsing="false" onAction="#cargarCrear" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #FFFFA8; -fx-background-radius: 50;" text="Crear Usuario">
+         <effect>
+            <DropShadow offsetX="1.0" offsetY="2.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tbUsuarios" layoutX="19.0" layoutY="56.0" onMouseClicked="#filaSeleccionada" prefHeight="281.0" prefWidth="768.0">
+        <columns>
+          <TableColumn fx:id="colid" prefWidth="24.0" text="ID" />
+          <TableColumn fx:id="colNombre" prefWidth="91.0" text="Nombre" />
+            <TableColumn fx:id="colApellidos" prefWidth="110.0" text="Apellidos" />
+            <TableColumn fx:id="colCorreo" prefWidth="139.0" text="Correo" />
+            <TableColumn fx:id="colNumero" prefWidth="131.0" text="Numero" />
+            <TableColumn fx:id="colUsername" prefWidth="99.0" text="Username" />
+            <TableColumn fx:id="colPassword" prefWidth="115.0" text="Contraseña" />
+            <TableColumn fx:id="colAdmin" minWidth="0.0" prefWidth="58.0" text="Admin" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

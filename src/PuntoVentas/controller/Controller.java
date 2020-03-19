@@ -60,13 +60,21 @@ public class Controller {
                 if(password.equals(txtpassword)){
                     usuario = UsersModel.find_user(conexion, txtusuario);  
                     user = usuario;
-                    if(usuario.get_admin() == 1){
-                        PuntoVentas.Main.isAdmin = true;
-                        mostra_Menu("FXMLMenuAdmin.fxml");
-                    } else {
-                        PuntoVentas.Main.isAdmin = false;
-                        mostra_Menu("FXMLMenu.fxml");
+                    if(usuario.get_isdelete() == 0){
+                        
+                        if(usuario.get_admin() == 1){
+                           PuntoVentas.Main.isAdmin = true;
+                           ControllerUsuarios.usuarioActivo = usuario;
+                           mostra_Menu("FXMLMenuAdmin.fxml");
+                        } else {
+                            PuntoVentas.Main.isAdmin = false;
+                            mostra_Menu("FXMLMenu.fxml");
+                        }
+                    }else{
+                        lbError.setText("Usuario Eliminado");
+                        lbError.setVisible(true);
                     }
+                   
 
                 } else {
                     lbError.setText("Contraseña incorrecta");

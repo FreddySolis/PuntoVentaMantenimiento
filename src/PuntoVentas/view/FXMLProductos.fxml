@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.ControllerProductos">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #e1e2e1;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.ControllerProductos">
    <children>
       <TextField fx:id="idTF" editable="false" layoutX="553.0" layoutY="550.0" prefHeight="7.0" prefWidth="23.0" visible="false">
          <opaqueInsets>
@@ -134,14 +135,19 @@
                         <TableColumn fx:id="colSize" prefWidth="75.0" text="Tamaño" />
                         <TableColumn fx:id="colPrice" prefWidth="75.0" text="Precio" />
                         <TableColumn fx:id="colAmount" prefWidth="75.0" text="Cantidad" />
-                        <TableColumn fx:id="colProvider" prefWidth="75.0" text="Proveedor" />
+                        <TableColumn fx:id="colProvider" prefWidth="119.0" text="Proveedor" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnDelete" layoutX="294.0" layoutY="345.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #ffd95a; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 ); -fx-background-radius: 50;" text="Eliminar" textAlignment="RIGHT">
+                  <Button fx:id="btnDelete" layoutX="353.0" layoutY="342.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #ffd95a; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 ); -fx-background-radius: 50;" text="Eliminar" textAlignment="RIGHT">
                      <font>
                         <Font size="18.0" fx:id="x2" />
                      </font>
                   </Button>
+                  <ComboBox fx:id="cbtipo" layoutX="6.0" layoutY="362.0" prefHeight="31.0" prefWidth="136.0" promptText="Tipo" />
+                  <Button fx:id="btnBuscar" layoutX="154.0" layoutY="343.0" mnemonicParsing="false" onAction="#buscar" prefHeight="18.0" prefWidth="78.0" style="-fx-background-color: #ffd95a; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 ); -fx-background-radius: 50;" text="Buscar" textAlignment="RIGHT" />
+                  <FontAwesomeIconView fx:id="btReiniciar" glyphName="HISTORY" layoutX="256.0" layoutY="372.0" onMouseClicked="#regresarTabla" size="40" wrappingWidth="44.0000057220459" />
+                  <ComboBox fx:id="cbprovee" layoutX="6.0" layoutY="327.0" prefHeight="31.0" prefWidth="136.0" promptText="Proveedor" />
+                  <Label layoutX="232.0" layoutY="371.0" text="Reinicar Tabla" />
                </children>
             </AnchorPane>
          </items>

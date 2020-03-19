@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -28,12 +29,13 @@ public class UsersModel {
     private String usuario;
     private String password;
     private int admin;
+    private int isdelete;
     
     public UsersModel(){
     
     }
     
-    public UsersModel(int id_info, int id_user, String nombre, String apellido, String correo, String numero, String usuario, String password, int admin){
+    public UsersModel(int id_info, int id_user, String nombre, String apellido, String correo, String numero, String usuario, String password, int admin, int isdelete){
         this.id_info=id_info;
         this.id_user=id_info;
         this.nombre=nombre;
@@ -43,6 +45,7 @@ public class UsersModel {
         this.usuario=usuario;
         this.password=password;
         this.admin=admin;
+        this.isdelete = isdelete;
     }
     
     //////////////////////////////////////SETS
@@ -73,6 +76,9 @@ public class UsersModel {
     public void set_password(String password){
         this.password=password;
     }
+    public void set_isdelete(int isdelete){
+        this.isdelete=isdelete;
+    }
     
     ////////////////////////////GETS
     public int get_id_info(){
@@ -102,6 +108,9 @@ public class UsersModel {
     public String get_password(){
         return password;
     }
+    public int get_isdelete(){
+        return isdelete;
+    }
     
     
     public int guardar_informacion_usuario(ConnectorMySQL cn){
@@ -127,8 +136,8 @@ public class UsersModel {
     
     public int guardar_usuario(ConnectorMySQL cn){
         String sSQL = "INSERT INTO usuarios (nombre_usuario, password, " +
-"                    admin) " +
-"                    VALUES (?,?,?)";      
+                        " admin, isdelete ) " +
+                        " VALUES (?,?,?,?)";      
         
             
         try {  
@@ -136,6 +145,7 @@ public class UsersModel {
             pst.setString(1,usuario);
             pst.setString(2,password);
             pst.setInt(3,admin);
+            pst.setInt(4,0);
             
             int affectedRows = pst.executeUpdate();
 
@@ -160,6 +170,42 @@ public class UsersModel {
             return 0;
         }
     }
+    
+    public int actualizar_informacion_usuario(ConnectorMySQL cn){
+        String sSQL = "UPDATE `informacion_usuario` SET `nombre` = ?, `apellidos` = ?, `correo` = ?, `telefono` = ? WHERE `informacion_usuario`.`id` = "+id_info+"";  
+       
+        try {  
+            PreparedStatement pst = cn.getConnection().prepareStatement(sSQL);           
+            pst.setString(1,nombre);
+            pst.setString(2,apellido);
+            pst.setString(3,correo);
+            pst.setString(4,numero);           
+            System.out.println(id_info);
+            return pst.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return 0;
+        }
+    }
+    
+    public int actualizar_usuario(ConnectorMySQL cn){
+        String sSQL = "UPDATE `usuarios` SET `nombre_usuario` = ?, `password` = ?, `admin` = ? WHERE `usuarios`.`id` = " + id_user +"";           
+            
+        try {  
+            PreparedStatement pst = cn.getConnection().prepareStatement(sSQL);
+            pst.setString(1,usuario);
+            pst.setString(2,password);
+            pst.setInt(3,admin);            
+            
+            return pst.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return 0;
+        }
+    }
+
     public static void all_user(ConnectorMySQL cn, ObservableList<UsersModel> lista){
         UsersModel usuari = null;       
         String usuarioSQL = "SELECT * from usuarios INNER JOIN informacion_usuario ON usuarios.id = informacion_usuario.id_usuarios";
@@ -177,6 +223,7 @@ public class UsersModel {
                 usuari.set_admin(rs.getInt("admin"));
                 usuari.set_id_user(rs.getInt("usuarios.id"));
                 usuari.set_id_info(rs.getInt("informacion_usuario.id_usuarios"));
+                usuari.set_isdelete(rs.getInt("usuarios.isdelete"));
                 lista.add(usuari);
                 System.out.println("Usuario encontrado: " + usuari.get_usuario());   
                 //user = rs.getString("nombre_usuario");
@@ -190,10 +237,10 @@ public class UsersModel {
         }
     }
  
-    public static UsersModel find_user(ConnectorMySQL cn,String usuario){
-        UsersModel usuari = null;
-        String user = null;
-        String usuarioSQL = "SELECT * from usuarios INNER JOIN informacion_usuario ON usuarios.id = informacion_usuario.id where nombre_usuario ='"+usuario+"'";
+    public static  ObservableList<UsersModel> all_user_delete(ConnectorMySQL cn){
+        UsersModel usuari = null;   
+        ObservableList<UsersModel> list = FXCollections.observableArrayList();
+        String usuarioSQL = "SELECT * from usuarios INNER JOIN informacion_usuario ON usuarios.id = informacion_usuario.id_usuarios where usuarios.isdelete = 0";
         try {                          
             Statement stt = cn.getConnection().createStatement();
             ResultSet rs = stt.executeQuery(usuarioSQL);                
@@ -208,6 +255,39 @@ public class UsersModel {
                 usuari.set_admin(rs.getInt("admin"));
                 usuari.set_id_user(rs.getInt("usuarios.id"));
                 usuari.set_id_info(rs.getInt("informacion_usuario.id"));
+                usuari.set_isdelete(rs.getInt("usuarios.isdelete"));
+                list.add(usuari);
+                System.out.println("Usuario encontrado: " + usuari.get_usuario());   
+                //user = rs.getString("nombre_usuario");
+                //user = user +";"+rs.getString("admin");
+            }                
+            //System.out.println("Usuario encontrado: " + usuari.get_nombre());   
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+           
+        }
+        return list;
+    }
+    public static UsersModel find_user(ConnectorMySQL cn,String usuario){
+        UsersModel usuari = null;
+        String user = null;
+        String usuarioSQL = "SELECT * from usuarios INNER JOIN informacion_usuario ON usuarios.id = informacion_usuario.id_usuarios  where nombre_usuario ='"+usuario+"'";
+        try {                          
+            Statement stt = cn.getConnection().createStatement();
+            ResultSet rs = stt.executeQuery(usuarioSQL);                
+            while(rs.next()){
+                usuari = new UsersModel();
+                usuari.set_nombre(rs.getString("nombre"));
+                usuari.set_apellido(rs.getString("apellidos"));
+                usuari.set_correo(rs.getString("correo"));
+                usuari.set_numero(rs.getString("telefono"));
+                usuari.set_usuario(rs.getString("nombre_usuario"));
+                usuari.set_password(rs.getString("password"));
+                usuari.set_admin(rs.getInt("admin"));
+                usuari.set_id_user(rs.getInt("usuarios.id"));
+                usuari.set_id_info(rs.getInt("informacion_usuario.id"));
+                usuari.set_isdelete(rs.getInt("usuarios.isdelete"));
                 System.out.println("Usuario encontrado: " + usuari.get_nombre());   
 
                 //user = rs.getString("nombre_usuario");
@@ -239,7 +319,8 @@ public class UsersModel {
                 usuari.set_password(rs.getString("password"));
                 usuari.set_admin(rs.getInt("admin"));
                 usuari.set_id_user(rs.getInt("usuarios.id"));
-                usuari.set_id_info(rs.getInt("informacion_usuario.id_usuarios"));
+                usuari.set_id_info(rs.getInt("informacion_usuario.id"));
+                usuari.set_isdelete(rs.getInt("usuarios.isdelete"));
                 System.out.println("Correo encontrado: " + usuari.get_correo()); 
             }                
             //System.out.println("Correo encontrado: " + usuari.get_correo());     
@@ -268,6 +349,23 @@ public class UsersModel {
         }
         
     }
+    
+    public static int eliminar_usuario(ConnectorMySQL cn, int id){
+        String sSQL = "UPDATE `usuarios` SET `usuarios`.`isdelete` = ? WHERE `usuarios`.`id` = " + id +"";           
+            
+        try {  
+            PreparedStatement pst = cn.getConnection().prepareStatement(sSQL);
+            pst.setInt(1,1);                       
+            
+            return pst.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return 0;
+        }
+    }
+
+
     
     @Override
     public String toString(){

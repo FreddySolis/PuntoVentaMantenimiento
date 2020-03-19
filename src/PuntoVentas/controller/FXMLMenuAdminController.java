@@ -30,7 +30,7 @@ import javafx.util.Duration;
 public class FXMLMenuAdminController implements Initializable {
 
     @FXML
-    private AnchorPane apContenedor;
+    public AnchorPane apContenedor;
 
     private AnchorPane home;
 
@@ -64,11 +64,15 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void cajeros(MouseEvent event) {
+       
         try {
-            createPage("FXMLPuntoVentasREGISTRO");
+            ControllerUsuarios.controllerMenu = this;
+            createPage("FXMLPuntoVentasUSUARIOS");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     @FXML

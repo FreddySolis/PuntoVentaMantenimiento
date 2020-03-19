@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="630.0" style="-fx-background-color: #f9a825" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.Controller">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="630.0" style="-fx-background-color: #f9a825" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.controller.Controller">
   <children>
     <Rectangle id="frames" arcHeight="5.0" arcWidth="5.0" cache="true" cacheHint="ROTATE" fill="#f5a840" height="525.0" layoutX="64.0" layoutY="73.0" stroke="WHITE" strokeMiterLimit="10.0" strokeType="INSIDE" strokeWidth="0.0" style=" -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );" width="500.0" />
     <Pane layoutX="129.0" layoutY="324.0" prefHeight="47.0" prefWidth="370.0" style="-fx-background-color: #ffffff; -fx-background-radius: 50px;">
@@ -53,7 +53,7 @@
         <Font size="17.0" />
       </font>
     </Button>
-    <Label fx:id="lbError" layoutX="289.0" layoutY="395.0" text="Errores" textAlignment="CENTER" textFill="RED">
+    <Label fx:id="lbError" layoutX="289.0" layoutY="395.0" text="Errores" textAlignment="CENTER" textFill="RED" visible="false">
       <font>
         <Font name="System Italic" size="15.0" />
       </font>

@@ -28,12 +28,14 @@ import java.util.ResourceBundle;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import PuntoVentas.model.ProductosModel;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 
 public class ControllerProductos implements Initializable {
 
@@ -72,7 +74,11 @@ public class ControllerProductos implements Initializable {
     @FXML
     private TableColumn<ProductosModel, String> colProvider;
     @FXML
-    private TableView<ProductosModel> productTable;
+    private TableView<ProductosModel> productTable;    
+    @FXML
+    private ComboBox<String> cbprovee;
+    @FXML
+    private ComboBox<String> cbtipo;
     @FXML
     ObservableList<ProductosModel> productList = FXCollections.observableArrayList();
 
@@ -85,7 +91,7 @@ public class ControllerProductos implements Initializable {
         colSize.setCellValueFactory(new PropertyValueFactory<>("tamaño"));
         ObservableList<ProductosModel> list = getPersonList();
         productTable.getItems().setAll(list);
-
+        
         final ObservableList<ProductosModel> tablaProducto = productTable.getSelectionModel().getSelectedItems();
         tablaProducto.addListener(selectorTablaProductos);
         cBProvidersInit();
@@ -193,7 +199,9 @@ public class ControllerProductos implements Initializable {
                 cbproveedores.add(rs.getString("proveedor"));
             }
             cBProveedor.setItems(cbproveedores);
-            cBProveedor.getSelectionModel().selectFirst();
+            cBProveedor.getSelectionModel().selectFirst();   
+            cbproveedores.add("N/o");
+            cbprovee.getItems().addAll(cbproveedores);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,7 +223,9 @@ public class ControllerProductos implements Initializable {
                 cbproveedores.add(rs.getString("tipo"));
             }
             cBType.setItems(cbproveedores);
-            cBType.getSelectionModel().selectFirst();
+            cBType.getSelectionModel().selectFirst();    
+            cbproveedores.add("N/o");
+            cbtipo.getItems().addAll(cbproveedores);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -281,6 +291,79 @@ public class ControllerProductos implements Initializable {
         tablaPersonas.addListener(selectorTablaProductos);
 
         //INSERT INTO `productos` (`id`, `id_proveedor`, `id_tipo`, `producto`, `tamaño`, `precio`, `cantidad`) VALUES (NULL, '1', '1', 'test', 'grande', '50', '100');
+    }
+    
+    @FXML
+    void buscar(ActionEvent event) {
+        String sql;
+        
+        if(cbtipo.getSelectionModel().getSelectedItem()!=null && cbprovee.getSelectionModel().getSelectedItem()!=null){
+            
+            if(!cbtipo.getSelectionModel().getSelectedItem().equals("N/o") && !cbprovee.getSelectionModel().getSelectedItem().equals("N/o")){
+                System.out.println(cbtipo.getSelectionModel().getSelectedItem());
+                System.out.println(cbprovee.getSelectionModel().getSelectedItem());
+                sql ="SELECT * " +
+                    "FROM productos " +
+                    "INNER JOIN proveedores ON productos.id_proveedor = proveedores.id " +
+                    "INNER JOIN tipos ON productos.id_tipo = tipos.id "+
+                    "WHERE proveedores.proveedor = '"+cbprovee.getSelectionModel().getSelectedItem()+"' "+
+                    "AND tipos.tipo = '"+cbtipo.getSelectionModel().getSelectedItem()+"' ";
+                ObservableList<ProductosModel> list = getPersonList2(sql);
+                productTable.getItems().setAll(list);
+            }else if(cbtipo.getSelectionModel().getSelectedItem().equals("N/o") && !cbprovee.getSelectionModel().getSelectedItem().equals("N/o")){
+                System.out.println(cbprovee.getSelectionModel().getSelectedItem());
+                sql ="SELECT * " +
+                    "FROM productos " +
+                    "INNER JOIN proveedores ON productos.id_proveedor = proveedores.id " +
+                    "INNER JOIN tipos ON productos.id_tipo = tipos.id "+
+                    "WHERE proveedores.proveedor = '"+cbprovee.getSelectionModel().getSelectedItem()+"' ";
+                ObservableList<ProductosModel> list = getPersonList2(sql);
+                productTable.getItems().setAll(list);
+            }else if(!cbtipo.getSelectionModel().getSelectedItem().equals("N/o") && cbprovee.getSelectionModel().getSelectedItem().equals("N/o")){
+                System.out.println(cbtipo.getSelectionModel().getSelectedItem());
+                sql ="SELECT * " +
+                    "FROM productos " +
+                    "INNER JOIN proveedores ON productos.id_proveedor = proveedores.id " +
+                    "INNER JOIN tipos ON productos.id_tipo = tipos.id "+                    
+                    "WHERE tipos.tipo = '"+cbtipo.getSelectionModel().getSelectedItem()+"' ";
+                ObservableList<ProductosModel> list = getPersonList2(sql);
+                productTable.getItems().setAll(list);
+                
+            }
+            
+        }else{
+            System.out.println("Asignar ambos campos");
+        }
+
+    }
+    
+    @FXML
+    void regresarTabla(MouseEvent event) {
+        ObservableList<ProductosModel> list = getPersonList();
+        productTable.getItems().setAll(list);
+    }
+    
+    public ObservableList<ProductosModel> getPersonList2(String sql) {
+        ObservableList<ProductosModel> productList = FXCollections.observableArrayList();
+        Connection connection = ConnectorMySQL.getConnection();
+        String query = sql;
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+            ProductosModel Productos;
+            while (rs.next()) {
+                Productos = new ProductosModel(rs.getInt("id"), rs.getInt("id_proveedor"), rs.getString("proveedor"), rs.getInt("id_tipo"), rs.getString("tipo"), rs.getFloat("precio"), rs.getInt("cantidad"));
+                Productos.setProducto(rs.getString("producto"));
+                Productos.setTamaño(rs.getString("tamaño"));
+                productList.add(Productos);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productList;
     }
 
     public void userType() {
