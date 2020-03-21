@@ -133,9 +133,9 @@ public class FXMLVentasController implements Initializable {
         iva = 0;
         lblEmpleado.setText(Controller.user.get_nombre());
         String folio1 = VentasModel.buscarUltimaVenta(ConnectorMySQL.getConnection()).getFolio();
-        int folio =  Integer.parseInt(folio1)+1;
-        txtFolio.setText(folio+"");
-        venta.setFolio(folio+"");
+        int folio = Integer.parseInt(folio1) + 1;
+        txtFolio.setText(folio + "");
+        venta.setFolio(folio + "");
     }
 
     public void gestionarEventosProductos() {
@@ -144,7 +144,7 @@ public class FXMLVentasController implements Initializable {
                 lblProducto.setText(valorSeleccionado.getProducto());
                 txtCantidad.setText("1");
                 producto = valorSeleccionado;
-            }else{
+            } else {
                 producto = null;
             }
         });
@@ -225,44 +225,84 @@ public class FXMLVentasController implements Initializable {
             } else {
                 int result = 0;
                 for (ProductosVentas aux : listaVentas) {
-                        result = venta.guardarInformacion(ConnectorMySQL.getConnection());
-                        if (result == 1) {
-                            venta = venta.buscarVenta(ConnectorMySQL.getConnection());
-                            
-                            if (venta != null) {
-                                aux.setVenta(venta);
-                                result = aux.guardarInformacion(ConnectorMySQL.getConnection());
+                    result = venta.guardarInformacion(ConnectorMySQL.getConnection());
+                    if (result == 1) {
+                        venta = venta.buscarVenta(ConnectorMySQL.getConnection());
+
+                        if (venta != null) {
+                            aux.setVenta(venta);
+                            result = aux.guardarInformacion(ConnectorMySQL.getConnection());
+                            if (result == 1) {
+                                result = aux.getProductos().updateCantidad(ConnectorMySQL.getConnection());
                                 if (result == 1) {
-                                    result = aux.getProductos().updateCantidad(ConnectorMySQL.getConnection());
-                                    if (result == 1) {
-                                        error = false;
-                                    }
+                                    error = false;
                                 }
                             }
                         }
+                    }
 
-                        if (!error) {
-                            Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
-                            mensaje.setTitle("Venta Satisfactoria");
-                            mensaje.setContentText("La venta se ha realizado exitosamente");
-                            mensaje.show();
-                            listaProductos.clear();
-                            ProductosModel.llenarInformacion(ConnectorMySQL.getConnection(), listaProductos);
-                            listaVentas.clear();
-                            tblProductos.refresh();
-                            tlbVentas.refresh();
+                    if (!error) {
+                        ObservableList<ProductosVentas> data = tlbVentas.getItems();
+                        System.out.println("                      Ticket De Venta");
+                        System.out.println("Producto       Precio         Cantidad       Total");
+                        System.out.println("----------------------------------------------------------");
+                        for (ProductosVentas a : data) {
+                            String name = a.getProductos().getProducto();
+                            String price = String.valueOf(a.getProductos().getPrecio());
+                            String amount = String.valueOf(a.getCantidad());
+                            String total2 = String.valueOf(a.getTotal());
+                            int nameValue = name.length();
+                            int priceValue = price.length();
+                            int amountValue = amount.length();
+                            int totalValue = total2.length();
+                            if (name.length() < 15) {
+                                for (int i = 15; i > nameValue; i--) {
+                                    name = name + " ";
+                                }
+                            }
+                            if (price.length() < 15) {
+                                for (int i = 15; i > priceValue; i--) {
 
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Ha ocurrido un error");
-                            alert.setHeaderText("Venta incorrecta");
-                            alert.setContentText("No se ha podido realizar la venta, por falvor vuelta a intentarlo");
+                                    price = price + " ";
+                                }
+                            }
+                            if (amount.length() < 15) {
+                                for (int i = 15; i > amountValue; i--) {
 
-                            alert.showAndWait();
+                                    amount = amount + " ";
+                                }
+                            }
+                            if (total2.length() < 15) {
+                                for (int i = 15; i > totalValue; i--) {
+
+                                    total2 = total2 + " ";
+                                }
+                            }
+                            System.out.println(name + price + amount + total2);
+
                         }
+                        System.out.println("----------------------------------------------------------");
+                        Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+                        mensaje.setTitle("Venta Satisfactoria");
+                        mensaje.setContentText("La venta se ha realizado exitosamente");
+                        mensaje.show();
+                        listaProductos.clear();
+                        ProductosModel.llenarInformacion(ConnectorMySQL.getConnection(), listaProductos);
+                        listaVentas.clear();
+                        tblProductos.refresh();
+                        tlbVentas.refresh();
+
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Ha ocurrido un error");
+                        alert.setHeaderText("Venta incorrecta");
+                        alert.setContentText("No se ha podido realizar la venta, por falvor vuelta a intentarlo");
+
+                        alert.showAndWait();
+                    }
                     String folio1 = VentasModel.buscarUltimaVenta(ConnectorMySQL.getConnection()).getFolio();
-                    int folio =  Integer.parseInt(folio1)+1;
-                    txtFolio.setText(folio+"");
+                    int folio = Integer.parseInt(folio1) + 1;
+                    txtFolio.setText(folio + "");
                 }
 
             }
@@ -280,12 +320,12 @@ public class FXMLVentasController implements Initializable {
                 alert.setHeaderText("No hay suficientes producto");
                 alert.setContentText("No puedes agregar mas productos");
                 alert.showAndWait();
-            } else if(producto == null){
-             Alert alert = new Alert(Alert.AlertType.WARNING);
+            } else if (producto == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
                 alert.setHeaderText("No seleccionaste un producto");
                 alert.setContentText("No hay productos, por favor seleccionar uno");
-            }else {
+            } else {
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                 //venta.setFolio(txtFolio.getText());
                 float total = Integer.parseInt(txtCantidad.getText()) * producto.getPrecio();
@@ -297,7 +337,7 @@ public class FXMLVentasController implements Initializable {
                         total, iva));
                 producto.setCantidad(producto.getCantidad() - Integer.parseInt(txtCantidad.getText()));
                 tblProductos.refresh();
-                
+
                 calcularPrecios();
             }
         } catch (Exception e) {

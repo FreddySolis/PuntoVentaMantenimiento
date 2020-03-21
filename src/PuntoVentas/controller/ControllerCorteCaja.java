@@ -12,6 +12,17 @@ import PuntoVentas.model.VentasModel;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -219,6 +230,126 @@ public class ControllerCorteCaja implements Initializable{
     private void cargarUsuarios(){
         UsersModel.all_user(conexion, usersList);        
         cbListaUsuarios.getItems().addAll(usersList);
+    }
+    
+    @FXML
+    private void generatePDF() throws IOException, DocumentException, SQLException {
+
+        int value = cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user();
+
+        Connection connection = ConnectorMySQL.getConnection();
+
+        Statement st = connection.createStatement();
+        System.out.println(value);
+        if (value == 9999) {
+            ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '" + dtFechaI.getValue()  + "'AND'" + dtFechaF.getValue() + "' ORDER BY productos_ventas.fecha");
+
+            // Se crea el documento
+            Document documento = new Document();
+
+            // El OutPutStream para el fichero donde crearemos el PDF
+            FileOutputStream ficheroPDF = new FileOutputStream("C:\\Users\\admin3\\Desktop\\reporte ventas.pdf");
+
+            // Se asocia el documento de OutPutStream
+            PdfWriter.getInstance(documento, ficheroPDF);
+
+            // Se abre el documento
+            documento.open();
+
+            // Parrafo
+            Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
+                    FontFactory.getFont("arial",
+                            22,
+                            Font.BOLD,
+                            BaseColor.BLUE
+                    )
+            );
+
+            // Añadimos el titulo al documento
+            documento.add(titulo);
+
+            // Creamos una tabla
+            PdfPTable tabla = new PdfPTable(7);
+            tabla.addCell("PRODUCTO");
+            tabla.addCell("CANTIDAD");
+            tabla.addCell("TAMAÑO");
+            tabla.addCell("TOTAL");
+            tabla.addCell("IVA");
+            tabla.addCell("FECHA");
+            tabla.addCell("CAJERO");
+
+            while (rs.next()) {
+                tabla.addCell(rs.getString("productos.producto"));
+                tabla.addCell(rs.getString("productos_ventas.cantidad"));
+                tabla.addCell(rs.getString("productos.tamaño"));
+                tabla.addCell(rs.getString("productos_ventas.total"));
+                tabla.addCell(rs.getString("productos_ventas.iva"));
+                tabla.addCell(rs.getString("productos_ventas.fecha"));
+                tabla.addCell(rs.getString("usuarios.nombre_usuario"));
+            }
+
+            // Añadimos la tabla al documento
+            documento.add(tabla);
+
+            // Se cierra el documento
+            documento.close();
+        } else {
+
+            ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE productos_ventas.id_usuarios = " + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() + " AND fecha BETWEEN '" + dtFechaI.getValue() + "' AND '" + dtFechaF.getValue() + "'");
+
+            // Se crea el documento
+            Document documento = new Document();
+
+            // El OutPutStream para el fichero donde crearemos el PDF
+            FileOutputStream ficheroPDF = new FileOutputStream("C:\\Users\\admin3\\Desktop\\reporte ventas.pdf");
+
+            // Se asocia el documento de OutPutStream
+            PdfWriter.getInstance(documento, ficheroPDF);
+
+            // Se abre el documento
+            documento.open();
+
+            // Parrafo
+            Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
+                    FontFactory.getFont("arial",
+                            22,
+                            Font.BOLD,
+                            BaseColor.BLUE
+                    )
+            );
+
+            // Añadimos el titulo al documento
+            documento.add(titulo);
+
+            // Creamos una tabla
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.addCell("PRODUCTO");
+            tabla.addCell("CANTIDAD");
+            tabla.addCell("TAMAÑO");
+            tabla.addCell("TOTAL");
+            tabla.addCell("IVA");
+            tabla.addCell("FECHA");
+
+            while (rs.next()) {
+                tabla.addCell(rs.getString("productos.producto"));
+                tabla.addCell(rs.getString("productos_ventas.cantidad"));
+                tabla.addCell(rs.getString("productos.tamaño"));
+                tabla.addCell(rs.getString("productos_ventas.total"));
+                tabla.addCell(rs.getString("productos_ventas.iva"));
+                tabla.addCell(rs.getString("productos_ventas.fecha"));
+            }
+
+            // Añadimos la tabla al documento
+            documento.add(new Paragraph("           Cajero:        Freddy"));
+            documento.add(new Paragraph("\n"));
+            documento.add(tabla);
+
+            // Se cierra el documento
+            documento.close();
+
+        }
+        
+        
     }
     
     
