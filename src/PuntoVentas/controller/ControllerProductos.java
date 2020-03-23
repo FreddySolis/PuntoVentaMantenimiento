@@ -44,6 +44,8 @@ public class ControllerProductos implements Initializable {
     @FXML
     private Button btnEdit;
     @FXML
+    private Button btnTipo;
+    @FXML
     private Button btnDelete;
     @FXML
     private Button btnAdd;
@@ -364,6 +366,22 @@ public class ControllerProductos implements Initializable {
             e.printStackTrace();
         }
         return productList;
+    }
+    
+    @FXML
+    public void IrTipo() {
+        try {
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLVentasTipo.fxml"));
+            Scene scene = new Scene(root2);
+            Stage primaryLayout = new Stage();
+            primaryLayout.setScene(scene);
+            primaryLayout.setTitle("FXMLVentasTipo");
+            primaryLayout.show();
+            Stage nuevaEscena = (Stage) this.btnTipo.getScene().getWindow();
+            nuevaEscena.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void userType() {

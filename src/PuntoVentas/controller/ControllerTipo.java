@@ -20,13 +20,17 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -35,6 +39,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ControllerTipo implements Initializable{
     @FXML
 	private Button btnNuevo;
+    @FXML
+	private Button btnInv;
     @FXML
 	private Button btnEditar;
     @FXML
@@ -176,4 +182,19 @@ public class ControllerTipo implements Initializable{
         return null;
     }
         
+    @FXML
+    public void regresarInventario() {
+        try {
+            AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLInventario.fxml"));
+            Scene scene = new Scene(root2);
+            Stage primaryLayout = new Stage();
+            primaryLayout.setScene(scene);
+            primaryLayout.setTitle("FXMLInventario");
+            primaryLayout.show();
+            Stage nuevaEscena = (Stage) this.btnInv.getScene().getWindow();
+            nuevaEscena.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
