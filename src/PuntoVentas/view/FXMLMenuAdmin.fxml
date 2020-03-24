@@ -86,6 +86,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#tipos" prefHeight="50.0" prefWidth="110.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="BOOK" size="2.5em" wrappingWidth="30.499999284744263" />
+                  <Label text="Tipos">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </VBox>
             <VBox alignment="CENTER" onMouseClicked="#recorteCaja" prefHeight="50.0" prefWidth="110.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="HISTORY" size="2.5em" wrappingWidth="30.0">

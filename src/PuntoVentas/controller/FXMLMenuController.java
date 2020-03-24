@@ -40,7 +40,11 @@ public class FXMLMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            createPage("FXMLVentas");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -66,8 +70,17 @@ public class FXMLMenuController implements Initializable {
     @FXML
     private void inventarios(MouseEvent event) {
         try {
-            createPage("FXMLProductos");
+            createPage("FXMLInventario");
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void tipos(MouseEvent event) {
+        try {
+            createPage("FXMLVentasTipo");
         } catch (Exception e) {
             e.printStackTrace();
         }

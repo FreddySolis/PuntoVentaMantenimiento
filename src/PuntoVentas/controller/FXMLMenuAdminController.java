@@ -39,7 +39,12 @@ public class FXMLMenuAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            createPage("FXMLVentas");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -64,7 +69,7 @@ public class FXMLMenuAdminController implements Initializable {
 
     @FXML
     private void cajeros(MouseEvent event) {
-       
+
         try {
             ControllerUsuarios.controllerMenu = this;
             createPage("FXMLPuntoVentasUSUARIOS");
@@ -72,7 +77,7 @@ public class FXMLMenuAdminController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @FXML
@@ -88,7 +93,7 @@ public class FXMLMenuAdminController implements Initializable {
     @FXML
     private void inventarios(MouseEvent event) {
         try {
-            createPage("FXMLProductos");
+            createPage("FXMLInventario");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,6 +103,15 @@ public class FXMLMenuAdminController implements Initializable {
     private void ventas(MouseEvent event) {
         try {
             createPage("FXMLVentas");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void tipos(MouseEvent event) {
+        try {
+            createPage("FXMLVentasTipo");
         } catch (Exception e) {
             e.printStackTrace();
         }
