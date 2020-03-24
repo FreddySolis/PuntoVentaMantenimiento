@@ -114,5 +114,16 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
+      <Button fx:id="ruta" layoutX="13.0" layoutY="179.0" mnemonicParsing="false" onAction="#FijarRuta" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #CABF45; -fx-background-radius: 50;" text="Seleccionar Ruta">
+         <effect>
+            <DropShadow offsetX="1.0" offsetY="2.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

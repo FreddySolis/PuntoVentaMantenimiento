@@ -12,6 +12,7 @@ import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
+    public static String path = "";
         public static boolean isAdmin;
 	private Stage primaryStage;
 	private AnchorPane root;

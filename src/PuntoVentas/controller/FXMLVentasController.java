@@ -5,6 +5,7 @@
  */
 package PuntoVentas.controller;
 
+import PuntoVentas.Main;
 import PuntoVentas.model.ConnectorMySQL;
 import PuntoVentas.model.ConnectorMySQL;
 import PuntoVentas.model.ProductosModel;
@@ -13,6 +14,8 @@ import PuntoVentas.model.ProductosVentas;
 import PuntoVentas.model.ProductosVentas;
 import PuntoVentas.model.VentasModel;
 import PuntoVentas.model.VentasModel;
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -33,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
 
 /**
  * FXML Controller class
@@ -242,10 +246,8 @@ public class FXMLVentasController implements Initializable {
                     }
 
                     if (!error) {
+                        String txtFinal = "";
                         ObservableList<ProductosVentas> data = tlbVentas.getItems();
-                        System.out.println("                      Ticket De Venta");
-                        System.out.println("Producto       Precio         Cantidad       Total");
-                        System.out.println("----------------------------------------------------------");
                         for (ProductosVentas a : data) {
                             String name = a.getProductos().getProducto();
                             String price = String.valueOf(a.getProductos().getPrecio());
@@ -278,10 +280,10 @@ public class FXMLVentasController implements Initializable {
                                     total2 = total2 + " ";
                                 }
                             }
-                            System.out.println(name + price + amount + total2);
+                            txtFinal = name + price + amount + total2 + "\n" + txtFinal;
 
                         }
-                        System.out.println("----------------------------------------------------------");
+                        txtFinal = "----------------------------------------------------------\n" + txtFinal;
                         Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
                         mensaje.setTitle("Venta Satisfactoria");
                         mensaje.setContentText("La venta se ha realizado exitosamente");
@@ -291,6 +293,20 @@ public class FXMLVentasController implements Initializable {
                         listaVentas.clear();
                         tblProductos.refresh();
                         tlbVentas.refresh();
+
+                        File file = new File(Main.path + "\\ticket.txt");
+
+                        if (file.createNewFile()) {
+                            System.out.println("File is created!");
+                        } else {
+                            System.out.println("File already exists.");
+                        }
+                        FileWriter writer = new FileWriter(file);
+                        writer.write("                      Ticket De Venta\n");
+                        writer.write("Producto       Precio         Cantidad       Total\n");
+                        writer.write(txtFinal);
+                        writer.write("----------------------------------------------------------\n");
+                        writer.close();
 
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -343,6 +359,13 @@ public class FXMLVentasController implements Initializable {
         } catch (Exception e) {
             System.out.print("Error: " + e);
         }
+    }
+
+    @FXML
+    private void FijarRuta() {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Choose Directory");
+        Main.path = chooser.showDialog(null).getPath();
     }
 
     public void calcularPrecios() {
