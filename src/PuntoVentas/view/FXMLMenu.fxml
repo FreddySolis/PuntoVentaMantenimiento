@@ -63,7 +63,7 @@
       </StackPane>
       <HBox alignment="CENTER" layoutY="30.0" prefHeight="60.0" prefWidth="800.0">
          <children>
-            <VBox alignment="CENTER" onMouseClicked="#inventarios" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+            <VBox alignment="CENTER" onMouseClicked="#inventarios" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="ARCHIVE" size="2.5em" wrappingWidth="30.0">
                      <cursor>
@@ -86,7 +86,23 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </VBox>
-            <VBox alignment="CENTER" onMouseClicked="#ventas" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+            <VBox alignment="CENTER" onMouseClicked="#tipos" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+               <children>
+                  <FontAwesomeIconView fill="#cabf45" glyphName="BOOK" size="2.5em" wrappingWidth="30.499999284744263" />
+                  <Label text="Tipos">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#ventas" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="INDUSTRY" size="2.5em" text="" wrappingWidth="30.0">
                      <cursor>
@@ -109,7 +125,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </VBox>
-            <VBox alignment="CENTER" onMouseClicked="#proveedores" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+            <VBox alignment="CENTER" onMouseClicked="#proveedores" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="USERS" size="2.5em" wrappingWidth="30.0">
                      <cursor>
@@ -132,7 +148,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </VBox>
-            <VBox alignment="CENTER" onMouseClicked="#reportes" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+            <VBox alignment="CENTER" onMouseClicked="#reportes" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="COLUMNS" size="2.5em" wrappingWidth="30.0">
                      <cursor>
@@ -155,7 +171,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </VBox>
-            <VBox alignment="CENTER" onMouseClicked="#logout" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
+            <VBox alignment="CENTER" onMouseClicked="#logout" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #ffffa8; -fx-border-color: white; -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0 );">
                <children>
                   <FontAwesomeIconView fill="#cabf45" glyphName="UNDO" size="2.5em" wrappingWidth="30.0">
                      <cursor>

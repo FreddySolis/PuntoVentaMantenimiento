@@ -369,7 +369,7 @@ public class ControllerProductos implements Initializable {
     }
     
     @FXML
-    public void IrTipo() {
+    void irTipo(ActionEvent event){
         try {
             AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLVentasTipo.fxml"));
             Scene scene = new Scene(root2);
