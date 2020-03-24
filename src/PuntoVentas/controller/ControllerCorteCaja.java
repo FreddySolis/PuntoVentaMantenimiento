@@ -26,13 +26,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -247,121 +250,133 @@ public class ControllerCorteCaja implements Initializable {
     @FXML
     private void generatePDF() throws IOException, DocumentException, SQLException {
 
-        int value = cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user();
+        if (Main.path != "") {
 
-        Connection connection = ConnectorMySQL.getConnection();
+            int value = cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user();
 
-        Statement st = connection.createStatement();
-        System.out.println(value);
-        if (value == 9999) {
-            ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '" + dtFechaI.getValue() + "'AND'" + dtFechaF.getValue() + "' ORDER BY productos_ventas.fecha");
+            Connection connection = ConnectorMySQL.getConnection();
 
-            // Se crea el documento
-            Document documento = new Document();
+            Statement st = connection.createStatement();
+            System.out.println(value);
+            if (value == 9999) {
+                ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE fecha BETWEEN '" + dtFechaI.getValue() + "'AND'" + dtFechaF.getValue() + "' ORDER BY productos_ventas.fecha");
 
-            // El OutPutStream para el fichero donde crearemos el PDF
-            FileOutputStream ficheroPDF = new FileOutputStream(Main.path + "\\reporte.pdf");
+                // Se crea el documento
+                Document documento = new Document();
 
-            // Se asocia el documento de OutPutStream
-            PdfWriter.getInstance(documento, ficheroPDF);
+                // El OutPutStream para el fichero donde crearemos el PDF
+                FileOutputStream ficheroPDF = new FileOutputStream(Main.path + "\\reporte.pdf");
 
-            // Se abre el documento
-            documento.open();
+                // Se asocia el documento de OutPutStream
+                PdfWriter.getInstance(documento, ficheroPDF);
 
-            // Parrafo
-            Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
-                    FontFactory.getFont("arial",
-                            22,
-                            Font.BOLD,
-                            BaseColor.BLUE
-                    )
-            );
+                // Se abre el documento
+                documento.open();
 
-            // Añadimos el titulo al documento
-            documento.add(titulo);
+                // Parrafo
+                Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
+                        FontFactory.getFont("arial",
+                                22,
+                                Font.BOLD,
+                                BaseColor.BLUE
+                        )
+                );
 
-            // Creamos una tabla
-            PdfPTable tabla = new PdfPTable(7);
-            tabla.addCell("PRODUCTO");
-            tabla.addCell("CANTIDAD");
-            tabla.addCell("TAMAÑO");
-            tabla.addCell("TOTAL");
-            tabla.addCell("IVA");
-            tabla.addCell("FECHA");
-            tabla.addCell("CAJERO");
+                // Añadimos el titulo al documento
+                documento.add(titulo);
 
-            while (rs.next()) {
-                tabla.addCell(rs.getString("productos.producto"));
-                tabla.addCell(rs.getString("productos_ventas.cantidad"));
-                tabla.addCell(rs.getString("productos.tamaño"));
-                tabla.addCell(rs.getString("productos_ventas.total"));
-                tabla.addCell(rs.getString("productos_ventas.iva"));
-                tabla.addCell(rs.getString("productos_ventas.fecha"));
-                tabla.addCell(rs.getString("usuarios.nombre_usuario"));
+                // Creamos una tabla
+                PdfPTable tabla = new PdfPTable(7);
+                tabla.addCell("PRODUCTO");
+                tabla.addCell("CANTIDAD");
+                tabla.addCell("TAMAÑO");
+                tabla.addCell("TOTAL");
+                tabla.addCell("IVA");
+                tabla.addCell("FECHA");
+                tabla.addCell("CAJERO");
+
+                while (rs.next()) {
+                    tabla.addCell(rs.getString("productos.producto"));
+                    tabla.addCell(rs.getString("productos_ventas.cantidad"));
+                    tabla.addCell(rs.getString("productos.tamaño"));
+                    tabla.addCell(rs.getString("productos_ventas.total"));
+                    tabla.addCell(rs.getString("productos_ventas.iva"));
+                    tabla.addCell(rs.getString("productos_ventas.fecha"));
+                    tabla.addCell(rs.getString("usuarios.nombre_usuario"));
+                }
+
+                // Añadimos la tabla al documento
+                documento.add(tabla);
+
+                // Se cierra el documento
+                documento.close();
+            } else {
+
+                ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE productos_ventas.id_usuarios = " + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() + " AND fecha BETWEEN '" + dtFechaI.getValue() + "' AND '" + dtFechaF.getValue() + "'");
+
+                // Se crea el documento
+                Document documento = new Document();
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+                Date date = new Date();
+                
+                // El OutPutStream para el fichero donde crearemos el PDF
+                System.out.println(Main.path + "\\" + formatter.format(date) + ".pdf");
+                FileOutputStream ficheroPDF = new FileOutputStream(Main.path + "\\" + formatter.format(date) + ".pdf");
+
+                // Se asocia el documento de OutPutStream
+                PdfWriter.getInstance(documento, ficheroPDF);
+
+                // Se abre el documento
+                documento.open();
+
+                // Parrafo
+                Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
+                        FontFactory.getFont("arial",
+                                22,
+                                Font.BOLD,
+                                BaseColor.BLUE
+                        )
+                );
+
+                // Añadimos el titulo al documento
+                documento.add(titulo);
+
+                // Creamos una tabla
+                PdfPTable tabla = new PdfPTable(6);
+                tabla.addCell("PRODUCTO");
+                tabla.addCell("CANTIDAD");
+                tabla.addCell("TAMAÑO");
+                tabla.addCell("TOTAL");
+                tabla.addCell("IVA");
+                tabla.addCell("FECHA");
+
+                while (rs.next()) {
+                    tabla.addCell(rs.getString("productos.producto"));
+                    tabla.addCell(rs.getString("productos_ventas.cantidad"));
+                    tabla.addCell(rs.getString("productos.tamaño"));
+                    tabla.addCell(rs.getString("productos_ventas.total"));
+                    tabla.addCell(rs.getString("productos_ventas.iva"));
+                    tabla.addCell(rs.getString("productos_ventas.fecha"));
+                }
+
+                // Añadimos la tabla al documento
+                documento.add(new Paragraph("           Cajero:        Freddy"));
+                documento.add(new Paragraph("\n"));
+                documento.add(tabla);
+
+                // Se cierra el documento
+                documento.close();
+
             }
-
-            // Añadimos la tabla al documento
-            documento.add(tabla);
-
-            // Se cierra el documento
-            documento.close();
         } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Ruta incorrecta");
+            alert.setContentText("Selecciones la Ruta");
 
-            ResultSet rs = st.executeQuery("SELECT * FROM `productos_ventas` INNER JOIN `productos` ON productos_ventas.id_productos = productos.id INNER JOIN `usuarios` ON usuarios.id=productos_ventas.id_usuarios INNER JOIN `ventas` ON productos_ventas.id_ventas = ventas.id INNER JOIN `proveedores` ON proveedores.id = productos.id_proveedor WHERE productos_ventas.id_usuarios = " + cbListaUsuarios.getSelectionModel().getSelectedItem().get_id_user() + " AND fecha BETWEEN '" + dtFechaI.getValue() + "' AND '" + dtFechaF.getValue() + "'");
-
-            // Se crea el documento
-            Document documento = new Document();
-
-            // El OutPutStream para el fichero donde crearemos el PDF
-            FileOutputStream ficheroPDF = new FileOutputStream(Main.path + "\\reporte.pdf");
-            System.out.println(Main.path + "\\reporte.pdf");
-
-            // Se asocia el documento de OutPutStream
-            PdfWriter.getInstance(documento, ficheroPDF);
-
-            // Se abre el documento
-            documento.open();
-
-            // Parrafo
-            Paragraph titulo = new Paragraph("Reporte De Ventas \n\n",
-                    FontFactory.getFont("arial",
-                            22,
-                            Font.BOLD,
-                            BaseColor.BLUE
-                    )
-            );
-
-            // Añadimos el titulo al documento
-            documento.add(titulo);
-
-            // Creamos una tabla
-            PdfPTable tabla = new PdfPTable(6);
-            tabla.addCell("PRODUCTO");
-            tabla.addCell("CANTIDAD");
-            tabla.addCell("TAMAÑO");
-            tabla.addCell("TOTAL");
-            tabla.addCell("IVA");
-            tabla.addCell("FECHA");
-
-            while (rs.next()) {
-                tabla.addCell(rs.getString("productos.producto"));
-                tabla.addCell(rs.getString("productos_ventas.cantidad"));
-                tabla.addCell(rs.getString("productos.tamaño"));
-                tabla.addCell(rs.getString("productos_ventas.total"));
-                tabla.addCell(rs.getString("productos_ventas.iva"));
-                tabla.addCell(rs.getString("productos_ventas.fecha"));
-            }
-
-            // Añadimos la tabla al documento
-            documento.add(new Paragraph("           Cajero:        Freddy"));
-            documento.add(new Paragraph("\n"));
-            documento.add(tabla);
-
-            // Se cierra el documento
-            documento.close();
-
+            alert.showAndWait();
         }
-
     }
 
 }

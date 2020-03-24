@@ -17,7 +17,9 @@ import PuntoVentas.model.VentasModel;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.beans.value.ObservableValue;
@@ -244,75 +246,86 @@ public class FXMLVentasController implements Initializable {
                             }
                         }
                     }
-
-                    if (!error) {
-                        String txtFinal = "";
-                        ObservableList<ProductosVentas> data = tlbVentas.getItems();
-                        for (ProductosVentas a : data) {
-                            String name = a.getProductos().getProducto();
-                            String price = String.valueOf(a.getProductos().getPrecio());
-                            String amount = String.valueOf(a.getCantidad());
-                            String total2 = String.valueOf(a.getTotal());
-                            int nameValue = name.length();
-                            int priceValue = price.length();
-                            int amountValue = amount.length();
-                            int totalValue = total2.length();
-                            if (name.length() < 15) {
-                                for (int i = 15; i > nameValue; i--) {
-                                    name = name + " ";
+                    if (Main.path != "") {
+                        if (!error) {
+                            String txtFinal = "";
+                            ObservableList<ProductosVentas> data = tlbVentas.getItems();
+                            for (ProductosVentas a : data) {
+                                String name = a.getProductos().getProducto();
+                                String price = String.valueOf(a.getProductos().getPrecio());
+                                String amount = String.valueOf(a.getCantidad());
+                                String total2 = String.valueOf(a.getTotal());
+                                int nameValue = name.length();
+                                int priceValue = price.length();
+                                int amountValue = amount.length();
+                                int totalValue = total2.length();
+                                if (name.length() < 15) {
+                                    for (int i = 15; i > nameValue; i--) {
+                                        name = name + " ";
+                                    }
                                 }
-                            }
-                            if (price.length() < 15) {
-                                for (int i = 15; i > priceValue; i--) {
+                                if (price.length() < 15) {
+                                    for (int i = 15; i > priceValue; i--) {
 
-                                    price = price + " ";
+                                        price = price + " ";
+                                    }
                                 }
-                            }
-                            if (amount.length() < 15) {
-                                for (int i = 15; i > amountValue; i--) {
+                                if (amount.length() < 15) {
+                                    for (int i = 15; i > amountValue; i--) {
 
-                                    amount = amount + " ";
+                                        amount = amount + " ";
+                                    }
                                 }
-                            }
-                            if (total2.length() < 15) {
-                                for (int i = 15; i > totalValue; i--) {
+                                if (total2.length() < 15) {
+                                    for (int i = 15; i > totalValue; i--) {
 
-                                    total2 = total2 + " ";
+                                        total2 = total2 + " ";
+                                    }
                                 }
+                                txtFinal = name + price + amount + total2 + "\n" + txtFinal;
+
                             }
-                            txtFinal = name + price + amount + total2 + "\n" + txtFinal;
+                            txtFinal = "----------------------------------------------------------\n" + txtFinal;
+                            Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
+                            mensaje.setTitle("Venta Satisfactoria");
+                            mensaje.setContentText("La venta se ha realizado exitosamente");
+                            mensaje.show();
+                            listaProductos.clear();
+                            ProductosModel.llenarInformacion(ConnectorMySQL.getConnection(), listaProductos);
+                            listaVentas.clear();
+                            tblProductos.refresh();
+                            tlbVentas.refresh();
 
-                        }
-                        txtFinal = "----------------------------------------------------------\n" + txtFinal;
-                        Alert mensaje = new Alert(Alert.AlertType.INFORMATION);
-                        mensaje.setTitle("Venta Satisfactoria");
-                        mensaje.setContentText("La venta se ha realizado exitosamente");
-                        mensaje.show();
-                        listaProductos.clear();
-                        ProductosModel.llenarInformacion(ConnectorMySQL.getConnection(), listaProductos);
-                        listaVentas.clear();
-                        tblProductos.refresh();
-                        tlbVentas.refresh();
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+                            Date date = new Date();
 
-                        File file = new File(Main.path + "\\ticket.txt");
+                            File file = new File(Main.path + "\\" + formatter.format(date) + ".txt");
 
-                        if (file.createNewFile()) {
-                            System.out.println("File is created!");
+                            if (file.createNewFile()) {
+                                System.out.println("File is created!");
+                            } else {
+                                System.out.println("File already exists.");
+                            }
+                            FileWriter writer = new FileWriter(file);
+                            writer.write("                      Ticket De Venta\n");
+                            writer.write("Producto       Precio         Cantidad       Total\n");
+                            writer.write(txtFinal);
+                            writer.write("----------------------------------------------------------\n");
+                            writer.close();
+
                         } else {
-                            System.out.println("File already exists.");
-                        }
-                        FileWriter writer = new FileWriter(file);
-                        writer.write("                      Ticket De Venta\n");
-                        writer.write("Producto       Precio         Cantidad       Total\n");
-                        writer.write(txtFinal);
-                        writer.write("----------------------------------------------------------\n");
-                        writer.close();
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Ha ocurrido un error");
+                            alert.setHeaderText("Venta incorrecta");
+                            alert.setContentText("No se ha podido realizar la venta, por falvor vuelta a intentarlo");
 
+                            alert.showAndWait();
+                        }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Ha ocurrido un error");
-                        alert.setHeaderText("Venta incorrecta");
-                        alert.setContentText("No se ha podido realizar la venta, por falvor vuelta a intentarlo");
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Ruta incorrecta");
+                        alert.setContentText("Selecciones la Ruta");
 
                         alert.showAndWait();
                     }
